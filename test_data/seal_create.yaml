@@ -1,0 +1,25 @@
+-
+  name:  $csv{name}
+  base_url: http://192.168.60.237:9182
+  request:
+    method: POST
+    url: /seal/create/company
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+  parameters:
+    name-companyName-image-seal_name-spec: /data/create_seal.csv
+  data:
+    companyName: $csv{companyName}
+    image: $csv{image}
+    name: $csv{seal_name}
+    spec: $csv{spec}
+  expected:
+    - eq:{'code':0}
+    - eq: {'message':SUCCESS }
+    - contains:
+  extract:
+    ownerId : result.owner
+
+
+
+

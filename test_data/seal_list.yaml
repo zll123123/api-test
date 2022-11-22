@@ -1,0 +1,40 @@
+-
+  name: 获取全部印章列表
+  request:
+    method: GET
+    url: /seal/list
+    json:
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+    - contains: id
+
+
+-
+  name: 获取电子印章列表
+  request:
+    method: GET
+    url: /seal/list
+    params:
+      category: ELECTRONIC
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+    - contains: id
+
+
+
+-
+  name: 获取指定id的印章
+  request:
+    method: GET
+    url: /seal/list
+    params:
+      id: ${get_extract}(ownerId)
+  expected:
+     - eq: { 'code': 0 }
+     - eq: { 'message': SUCCESS }
+     - contains: id
+
+
+
