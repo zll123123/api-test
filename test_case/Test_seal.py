@@ -12,13 +12,13 @@ from util.operate_yaml import read_case_yaml
 
 class Test_seal:
     @pytest.mark.parametrize(
-        "case_info", read_case_yaml(rootpath + "/test_data/seal_create.yaml")
+        "new_case_info",
+        parse_csv(read_case_yaml(rootpath + "/test_data/seal_create.yaml")),
     )
-    def test_create_seal(self, case_info):
-        new_case_info = parse_csv(case_info)
+    def test_create_seal(self, new_case_info):
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
-        for case in new_case_info:
-            request_Util().analyse_yaml(case)
+        request_Util().analyse_yaml(new_case_info)
+        log.logger.info(f"{new_case_info}")
 
     # # 测试获取印章列表
     # @pytest.mark.parametrize('case_info', read_case_yaml(rootpath + '/test_data/seal_list.yaml'))

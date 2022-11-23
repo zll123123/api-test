@@ -48,5 +48,9 @@ def parse_csv(case_info):
                     new_case_info.append(json.loads(temp_case_info))
             return new_case_info
     else:
-        log.logger.error(f"parameters not in keys {case_info_keys}")
+        log.logger.info(f"parameters not in keys {case_info_keys}")
         return case_info
+
+
+if __name__ == "__main__":
+    pass

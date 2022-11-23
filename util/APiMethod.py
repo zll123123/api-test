@@ -179,7 +179,6 @@ class request_Util:
                                         res.json(), "$..%s" % assert_key
                                     )
                                     if act_value:
-                                        continue
                                         pytest.assume(
                                             assert_value == act_value[0],
                                             f"实际结果{act_value[0]}不等于预期结果{assert_value}",
