@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "chendong" && git push
+	git add . && git commit -m "fix" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'
