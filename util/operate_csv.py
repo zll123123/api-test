@@ -25,28 +25,23 @@ def parse_csv(case_info):
         case_info_str = json.dumps(case_info)
         for key, value in case_info["parameters"].items():
             log.logger.info(f"key: {key}\nvalue: {value}")
-            # 校验csv文件的格式
+            # 校验csv文件的格式是否一致
             param_keys = key.split("-")
             # 获取csv文件数据
-            list_data = read_csv(value)
-            length_flag = True
-            for csv_data in list_data:
-                if len(csv_data) != len(list_data[0]):  # 下面的字段值与填写的字段key的个数不一致
-                    length_flag = False
+            csv_data = read_csv(value)
+            for x in range(1, len(csv_data)):  # x表示行数,数据从第一行开始
+                if len(csv_data[x]) != len(csv_data[0]):  # 下面的字段值与填写的字段key的个数不一致
                     break
-
-            if length_flag:
-                for x in range(1, len(list_data)):  # x表示行数,数据从第一行开始
-                    # 每替换一行csv用例数据，yaml的用例字符串需要被还原
-                    temp_case_info = case_info_str
-                    for y in range(0, len(list_data[x])):  # Y表示列数
-                        if list_data[0][y] in param_keys:
-                            # 将caseinfo中的变量都替换掉
-                            temp_case_info = temp_case_info.replace(
-                                "$csv{" + list_data[0][y] + "}", list_data[x][y]
-                            )
-                    new_case_info.append(json.loads(temp_case_info))
-            return new_case_info
+                # 每替换一行csv用例数据，yaml的用例字符串需要被还原
+                temp_case_info = case_info_str
+                for y in range(0, len(csv_data[x])):  # Y表示列数
+                    if csv_data[0][y] in param_keys:
+                        # 将caseinfo中的变量都替换掉
+                        temp_case_info = temp_case_info.replace(
+                            "$csv{" + csv_data[0][y] + "}", csv_data[x][y]
+                        )
+                new_case_info.append(json.loads(temp_case_info))
+        return new_case_info
     else:
         log.logger.info(f"parameters not in keys {case_info_keys}")
         return case_info
