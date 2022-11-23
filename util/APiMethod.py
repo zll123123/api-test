@@ -3,7 +3,7 @@ import json
 from datetime import time
 import time
 import jsonpath as jsonpath
-
+from util import log
 import pytest
 import requests
 
@@ -137,12 +137,11 @@ class request_Util:
                     **caseinfo["request"],
                 )
                 self.assert_result(caseinfo["expected"], res)
-                # print(response,"res")
                 self.get_depend_data(caseinfo, res)
             else:
-                print("request下必须有的二级关键字url method")
+                log.logger.error("request下必须有的二级关键字url method")
         else:
-            print("必须有的四个一级关键字name base_url request expected")
+            log.logger.error("必须有的四个一级关键字name base_url request expected")
 
         return res
 

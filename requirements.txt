@@ -1,0 +1,5 @@
+loguru==0.6.0
+pytest==4.6.11
+jsonpath==0.82
+requests==2.22.0
+PyYAML==6.0

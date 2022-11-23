@@ -5,9 +5,9 @@ import pytest
 
 from rootpath import rootpath
 from util.APiMethod import request_Util
-
-from util.operate_csv import analysis_csv, read_csv
-from util.operate_yaml import write_yaml, read_case_yaml
+from util import log
+from util.operate_csv import parse_csv
+from util.operate_yaml import read_case_yaml
 
 
 class Test_seal:
@@ -15,14 +15,10 @@ class Test_seal:
         "case_info", read_case_yaml(rootpath + "/test_data/seal_create.yaml")
     )
     def test_create_seal(self, case_info):
-        new_case_info = analysis_csv(case_info)
-        for i in range(len(new_case_info)):
-            print(i, new_case_info[i])
-        import pdb
-
-        pdb.set_trace()
+        new_case_info = parse_csv(case_info)
+        log.logger.info(f"new_case_info length is {len(new_case_info)}")
         for case in new_case_info:
-            res = request_Util().analyse_yaml(case)
+            request_Util().analyse_yaml(case)
 
     # # 测试获取印章列表
     # @pytest.mark.parametrize('case_info', read_case_yaml(rootpath + '/test_data/seal_list.yaml'))

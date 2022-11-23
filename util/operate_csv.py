@@ -1,6 +1,6 @@
 import csv
 import json
-
+from util import log
 import rootpath
 
 sys_path = rootpath.rootpath
@@ -18,11 +18,13 @@ def read_csv(csv_path):
 
 
 # 解析csv文件
-def analysis_csv(case_info):
+def parse_csv(case_info):
+    new_case_info = []
     case_info_keys = dict(case_info).keys()
     if "parameters" in case_info_keys:
         case_info_str = json.dumps(case_info)
         for key, value in case_info["parameters"].items():
+            log.logger.info(f"key: {key}\nvalue: {value}")
             # 校验csv文件的格式
             param_keys = key.split("-")
             # 获取csv文件数据
@@ -32,7 +34,7 @@ def analysis_csv(case_info):
                 if len(csv_data) != len(list_data[0]):  # 下面的字段值与填写的字段key的个数不一致
                     length_flag = False
                     break
-            new_case_info = []
+
             if length_flag:
                 for x in range(1, len(list_data)):  # x表示行数,数据从第一行开始
                     # 每替换一行csv用例数据，yaml的用例字符串需要被还原
@@ -43,13 +45,8 @@ def analysis_csv(case_info):
                             temp_case_info = temp_case_info.replace(
                                 "$csv{" + list_data[0][y] + "}", list_data[x][y]
                             )
-                            new_case_info.append(json.loads(temp_case_info))
+                    new_case_info.append(json.loads(temp_case_info))
             return new_case_info
     else:
+        log.logger.error(f"parameters not in keys {case_info_keys}")
         return case_info
-
-
-#
-# if __name__ == '__main__':
-#     data=read_csv('/data/create_seal.csv')
-#

@@ -33,7 +33,6 @@ def get_extract(key):
 def read_case_yaml(yamlpath):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         caseinfo = yaml.load(stream=f, Loader=yaml.FullLoader)
-        # (len(caseinfo), caseinfo)
         return caseinfo
 
 

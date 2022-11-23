@@ -83,6 +83,7 @@ import sys
 import io
 import time
 import unittest
+from util import log
 from xml.sax import saxutils
 
 # ------------------------------------------------------------------------
@@ -687,7 +688,9 @@ class HTMLTestRunner(Template_mixin):
         test(result)
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
-        print("\nTime Elapsed: %s" % (self.stopTime - self.startTime), file=sys.stderr)
+        log.logger.info(
+            "\nTime Elapsed: %s" % (self.stopTime - self.startTime), file=sys.stderr
+        )
         return result
 
     def sortResult(self, result_list):
