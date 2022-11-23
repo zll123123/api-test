@@ -1,11 +1,11 @@
-#coding:utf-8
+# coding:utf-8
 import unittest
 
 from util import HTMLTestRunner
 from util.send_mail import SendEmail
 
 
-class Runmain():
+class Runmain:
     def __init__(self):
         self.send_mail = SendEmail()
 
@@ -18,7 +18,7 @@ class Runmain():
         # suite.addTest(Test('test_01'))
         # suite.addTest(Test('test_02'))
 
-        #2种用法：第二种suite.addTests()
+        # 2种用法：第二种suite.addTests()
         suite.addTests(map(Test, ["test_01", "test_02"]))
         suite.addTests(map(Case, ["test_case01", "test_case02"]))
 
@@ -26,15 +26,15 @@ class Runmain():
         # unittest.TextTestRunner().run(suite)
 
         # 输出结果：将测试结果以report.html形式生成
-        st = open('../report/report.html', 'wb')
-        HTMLTestRunner.HTMLTestRunner(stream=st,
-                                      title=u'接口自动化测试报告',
-                                      description=u'测试者：shapeying').run(suite)
+        st = open("../report/report.html", "wb")
+        HTMLTestRunner.HTMLTestRunner(
+            stream=st, title="接口自动化测试报告", description="测试者：shapeying"
+        ).run(suite)
 
-        #发送邮件带测试报告附件
+        # 发送邮件带测试报告附件
         self.send_mail.send_main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run = Runmain()
     run.run_case()

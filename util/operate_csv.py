@@ -6,10 +6,10 @@ import rootpath
 sys_path = rootpath.rootpath
 
 
-#读取csv文件
+# 读取csv文件
 def read_csv(csv_path):
     list_csv = []
-    with open(sys_path + csv_path, mode='r', encoding='utf-8') as f:
+    with open(sys_path + csv_path, mode="r", encoding="utf-8") as f:
         reader = csv.reader(f)
         for row in reader:
             list_csv.append(row)
@@ -17,14 +17,14 @@ def read_csv(csv_path):
         return list_csv
 
 
-#解析csv文件
+# 解析csv文件
 def analysis_csv(case_info):
     case_info_keys = dict(case_info).keys()
-    if 'parameters' in case_info_keys:
+    if "parameters" in case_info_keys:
         case_info_str = json.dumps(case_info)
-        for key, value in case_info['parameters'].items():
+        for key, value in case_info["parameters"].items():
             # 校验csv文件的格式
-            param_keys = key.split('-')
+            param_keys = key.split("-")
             # 获取csv文件数据
             list_data = read_csv(value)
             length_flag = True
@@ -41,8 +41,8 @@ def analysis_csv(case_info):
                         if list_data[0][y] in param_keys:
                             # 将caseinfo中的变量都替换掉
                             temp_case_info = temp_case_info.replace(
-                                '$csv{' + list_data[0][y] + '}',
-                                list_data[x][y])
+                                "$csv{" + list_data[0][y] + "}", list_data[x][y]
+                            )
                             new_case_info.append(json.loads(temp_case_info))
             return new_case_info
     else:
