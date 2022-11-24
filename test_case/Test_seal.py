@@ -16,9 +16,8 @@ class Test_seal:
         parse_csv(read_case_yaml(rootpath + "/test_data/seal_create.yaml")),
     )
     def test_create_seal(self, new_case_info):
-        log.logger.info(f"new_case_info length is {len(new_case_info)}")
-        request_Util().analyse_yaml(new_case_info)
         log.logger.info(f"{new_case_info}")
+        request_Util().analyse_yaml(new_case_info)
 
     # # 测试获取印章列表
     # @pytest.mark.parametrize('case_info', read_case_yaml(rootpath + '/test_data/seal_list.yaml'))

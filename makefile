@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "fix" && git push
+	git add . && git commit -m "修复接口报错 未设置参数" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'

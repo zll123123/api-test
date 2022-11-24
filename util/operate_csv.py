@@ -23,6 +23,7 @@ def parse_csv(case_info):
     case_info_keys = dict(case_info).keys()
     if "parameters" in case_info_keys:
         case_info_str = json.dumps(case_info)
+        temp_case_info = case_info_str
         for key, value in case_info["parameters"].items():
             log.logger.info(f"key: {key}\nvalue: {value}")
             # 校验csv文件的格式是否一致
@@ -33,7 +34,7 @@ def parse_csv(case_info):
                 if len(csv_data[x]) != len(csv_data[0]):  # 下面的字段值与填写的字段key的个数不一致
                     break
                 # 每替换一行csv用例数据，yaml的用例字符串需要被还原
-                temp_case_info = case_info_str
+                # temp_case_info = case_info_str
                 for y in range(0, len(csv_data[x])):  # Y表示列数
                     if csv_data[0][y] in param_keys:
                         # 将caseinfo中的变量都替换掉
@@ -41,7 +42,9 @@ def parse_csv(case_info):
                             "$csv{" + csv_data[0][y] + "}", csv_data[x][y]
                         )
                 new_case_info.append(json.loads(temp_case_info))
+        log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
+
     else:
         log.logger.info(f"parameters not in keys {case_info_keys}")
         return case_info

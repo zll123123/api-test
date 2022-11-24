@@ -58,6 +58,7 @@ class request_Util:
     #     return data
     # ${get_random_int}(1,500)
     def replace_args(self, data):
+
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
         else:
@@ -70,7 +71,7 @@ class request_Util:
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
 
                 # *号的作用是解包，相当于去除['1', '500'] []
-                args_list = args.split(",")
+                args_list = args.split(";")
 
                 # 此处使用的是反射原理
                 value = getattr(Debug_talk(), func)(*args_list)
@@ -129,6 +130,7 @@ class request_Util:
                     files = caseinfo["request"].pop("files")
                 caseinfo["request"].pop("url")
                 caseinfo["request"].pop("method")
+                log.logger.warning(f"{caseinfo['request']}")
                 res = self.send_request(
                     url=url,
                     method=method,
@@ -156,14 +158,17 @@ class request_Util:
             headers = self.replace_args(headers)
         # 处理请求参数，需要处理的是params ,data,json等,此处的可变参数接受到的值不确定是那种，但只对这三种处理
         if isinstance(kwargs, dict):
+
             for key, value in kwargs.items():
+                log.logger.info(f"{key} {value}")
                 if key in ["params", "data", "json"] and value:
                     kwargs[key] = self.replace_args(value)
+
         sesseion = requests.session()
+
         res = sesseion.request(
             url=self.url, method=self.lastmethod, headers=self.default_header, **kwargs
         )
-
         return res
 
     def assert_result(self, expect, res):
