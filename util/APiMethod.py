@@ -9,7 +9,7 @@ import requests
 
 from debug_talk import Debug_talk
 from rootpath import rootpath
-from util.operate_yaml import getData, get_extract, read_case_yaml, write_yaml
+from util.operate_yaml import getData, write_yaml
 
 
 class request_Util:
@@ -71,7 +71,7 @@ class request_Util:
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
 
                 # *号的作用是解包，相当于去除['1', '500'] []
-                args_list = args.split(";")
+                args_list = args.split(";")  # split方法分割符不存在时，返回原字符串
 
                 # 此处使用的是反射原理
                 value = getattr(Debug_talk(), func)(*args_list)
@@ -110,6 +110,7 @@ class request_Util:
             and "request" in caseinfo_keys
             and "expected" in caseinfo_keys
         ):
+            case_name = caseinfo["name"]
             # 一级关键字request下必须有的二级关键字 method url
             if (
                 "method" in dict(caseinfo)["request"].keys()
@@ -126,12 +127,11 @@ class request_Util:
                     caseinfo["request"].pop("headers")
 
                 if jsonpath.jsonpath(caseinfo, "$..files"):
-                    # files = caseinfo['request']['files']
                     files = caseinfo["request"].pop("files")
                 caseinfo["request"].pop("url")
                 caseinfo["request"].pop("method")
-                log.logger.warning(f"{caseinfo['request']}")
                 res = self.send_request(
+                    case_name,
                     url=url,
                     method=method,
                     headers=self.default_header if not headers else headers,
@@ -147,7 +147,7 @@ class request_Util:
 
         return res
 
-    def send_request(self, url, method, headers, **kwargs):
+    def send_request(self, case_name, url, method, headers, files, **kwargs):
         headers = self.default_header
         # 处理url
         self.url = self.base_url + self.replace_args(url)
@@ -158,24 +158,30 @@ class request_Util:
             headers = self.replace_args(headers)
         # 处理请求参数，需要处理的是params ,data,json等,此处的可变参数接受到的值不确定是那种，但只对这三种处理
         if isinstance(kwargs, dict):
-
             for key, value in kwargs.items():
                 log.logger.info(f"{key} {value}")
                 if key in ["params", "data", "json"] and value:
                     kwargs[key] = self.replace_args(value)
 
         sesseion = requests.session()
+        log.logger.info(
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files}"
+        )
 
         res = sesseion.request(
-            url=self.url, method=self.lastmethod, headers=self.default_header, **kwargs
+            url=self.url, method=self.lastmethod, headers=headers, **kwargs
         )
         return res
 
     def assert_result(self, expect, res):
+        log.logger.info(f"预期{expect}")
+
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):
                     for key, value in item.items():
+                        log.logger.info(f"key为{key},value为{value}")
+
                         # 相等断言
                         if "eq" == key:
                             if value and isinstance(value, dict):
@@ -189,19 +195,17 @@ class request_Util:
                                             f"实际结果{act_value[0]}不等于预期结果{assert_value}",
                                         )
                                     else:
-                                        continue
                                         raise AssertionError(f"接口返回中未找到{assert_key}")
                             else:
-                                continue
                                 raise AssertionError("相等断言的表达式不存在")
-                        if "contains" == key:
+
+                        elif "contains" == key:
                             if value:
                                 pytest.assume(
                                     value[0] in str(res.json()), f"实际结果中不包含字段{value}"
                                 )
+
                             else:
-                                continue
                                 raise AssertionError(f"包含条件未识别到表达式")
                         else:
-                            continue
-                            raise AssertionError("不支持的断言表达式")
+                            raise AssertionError("不支持的断言表达式{key}")

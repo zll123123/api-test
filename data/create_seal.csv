@@ -1,3 +1,2 @@
-name,companyName,image,seal_name,spec
-创建印章01,内部印章测试,${image_to_base64}(/images/印章01.png),印章测试_自动化测试${get_random_int}(1;500),CIRCULAR_50
-创建印章02,内部印章测试,${image_to_base64}(/images/印章02.png),印章测试_自动化测试${get_random_int}(1;500),CIRCULAR_45
+case_name,companyName,image,seal_name,spec
+创建印章01,内部印章测试,${image_to_base64}(/images/印章01.png),印章测试_自动化测试${get_random_int}(1;5000),CIRCULAR_50

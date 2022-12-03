@@ -16,7 +16,6 @@ class Debug_talk:
     # 将请求中的文件转换成base64编码的字符串
     def image_to_base64(self, path):
         path = rootpath + path
-        (path, "path")
         with open(path, "rb") as img:
             # 使用base64进行编码
             b64encode = base64.b64encode(img.read())

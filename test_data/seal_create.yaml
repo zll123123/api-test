@@ -1,6 +1,5 @@
 -
-  name:  $csv{name}
-  base_url: http://192.168.60.237:9182
+  name:  $csv{case_name}
   request:
     method: POST
     url: /seal/create/company
@@ -12,14 +11,13 @@
       name: $csv{seal_name}
       spec: $csv{spec}
   parameters:
-    name-companyName-image-seal_name-spec: /data/create_seal.csv
+    case_name-companyName-image-seal_name-spec: /data/create_seal.csv
   expected:
-    - eq:{'code':0}
+    - eq: {'code':0}
     - eq: {'message':SUCCESS }
-    - contains:
+    - contains: id
   extract:
     ownerId : result.owner
-
 
 
 

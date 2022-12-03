@@ -1,0 +1,6 @@
+case_name,id,name,registerNo,openCompanyId,sealAttribute,sealCategoryName
+获取平台方的印章列表,,,,,,
+获取指定id的公司印章列表,${ownerId},,,,
+获取指定公司的印章列表,,内部印章测试,,,
+获取电子印章列表,,,,,ELECTRONIC,
+clear
