@@ -165,7 +165,7 @@ class request_Util:
 
         sesseion = requests.session()
         log.logger.info(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files},请求参数{kwargs}"
         )
 
         res = sesseion.request(
