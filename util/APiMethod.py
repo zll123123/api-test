@@ -64,14 +64,14 @@ class request_Util:
         else:
             data_new = data
         for i in range(data_new.count("${")):
+            log.logger.info(f"{data_new}")
             if "${" in data_new and "}" in data_new:
                 fun_agrs = data_new[data_new.index("$") : data_new.index(")") + 1]
                 func = fun_agrs[fun_agrs.index("{") + 1 : fun_agrs.index("}")]
 
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
-
                 # *号的作用是解包，相当于去除['1', '500'] []
-                args_list = args.split(";")  # split方法分割符不存在时，返回原字符串
+                args_list = args.split(":")  # split方法分割符不存在时，返回原字符串
 
                 # 此处使用的是反射原理
                 value = getattr(Debug_talk(), func)(*args_list)
@@ -171,11 +171,11 @@ class request_Util:
         res = sesseion.request(
             url=self.url, method=self.lastmethod, headers=headers, **kwargs
         )
+        log.logger.info(f"接口响应结果为{res.json()}")
         return res
 
     def assert_result(self, expect, res):
-        log.logger.info(f"预期{expect}")
-
+        log.logger.info(f"预期{expect},实际结果为{res.json()}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):

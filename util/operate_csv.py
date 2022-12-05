@@ -23,6 +23,7 @@ def parse_csv(case_info):
     case_info_keys = dict(case_info).keys()
     if "parameters" in case_info_keys:
         case_info_str = json.dumps(case_info)
+        log.logger.info(f"case info str is: {case_info_str}")
         for key, value in case_info["parameters"].items():
             log.logger.info(f"key: {key}\nvalue: {value}")
             # 校验csv文件的格式是否一致
@@ -42,6 +43,7 @@ def parse_csv(case_info):
                             "$csv{" + csv_data[0][y] + "}", csv_data[x][y]
                         )
                 new_case_info.append(json.loads(temp_case_info))
+                log.logger.info(f"sub new_case_info length is {len(new_case_info)}")
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
 
