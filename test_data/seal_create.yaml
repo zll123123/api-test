@@ -11,13 +11,14 @@
       name: $csv{seal_name}
       spec: $csv{spec}
   parameters:
-    case_name-companyName-image-seal_name-spec: /data/create_seal.csv
+    case_name-companyName-image-seal_name-spec: data/create_seal.csv
   expected:
     - eq: {'code':0}
     - eq: {'message':SUCCESS }
     - contains: id
   extract:
     ownerId : result.owner
+    id: result.id
 
 
 

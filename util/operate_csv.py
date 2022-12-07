@@ -1,16 +1,15 @@
 import csv
 import json
+import os
 from util import log
-import rootpath
-
-sys_path = rootpath.rootpath
+from rootpath import rootpath
 
 
 # 读取csv文件
 def read_csv(csv_path):
     list_csv = []
-    with open(sys_path + csv_path, mode="r", encoding="utf-8") as f:
-        reader = csv.reader(f)
+    with open(os.path.join(rootpath, csv_path), mode="r", encoding="utf-8") as f:
+        reader = csv.reader(f, delimiter=";")  # 指定csv文件分割符
         for row in reader:
             list_csv.append(row)
 
@@ -53,4 +52,5 @@ def parse_csv(case_info):
 
 
 if __name__ == "__main__":
-    pass
+    data = read_csv(os.path.join(rootpath, "data/create_seal.csv"))
+    print(data[0][1])

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 from datetime import time
 import time
 import jsonpath as jsonpath
@@ -14,7 +15,7 @@ from util.operate_yaml import getData, write_yaml
 
 class request_Util:
     def __init__(self):
-        yamlpath = rootpath + "/config/apiConfig.yaml"
+        yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
         self.base_url = getData(yamlpath, "apitest", "address")
 
         appSecret = getData(yamlpath, "apitest", "app_secret")
@@ -58,6 +59,7 @@ class request_Util:
     #     return data
     # ${get_random_int}(1,500)
     def replace_args(self, data):
+        log.logger.info(f"替换csv参数信息元数据为{data}")
 
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
@@ -81,6 +83,7 @@ class request_Util:
             data = json.loads(data_new)
         else:
             data = data_new
+        log.logger.info(f"替换csv完成后的用例信息{data}")
         return data
 
     # 处理接口返回结果中的依赖数据
@@ -89,6 +92,7 @@ class request_Util:
             # json提取
             args_list = ""
             for key, value in caseinfo["extract"].items():
+                log.logger.info(f"要提取的参数的为{key},{value}")
                 if "." in value:
                     depend_key = value.split(".")
                     for item in depend_key:
@@ -98,10 +102,11 @@ class request_Util:
                     # eval() 函数用来执行一个字符串表达式，并返回表达式的值。
             if "result" in res.json():
                 extract_data = {key: eval(str(res.json()) + args_list)}
-                write_yaml(rootpath + "/config/extract.yaml", extract_data)
+                write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
+        log.logger.info(f"读取yaml时获取的用例信息{caseinfo}")
         # 必须有的三个一级关键字name ,request,expected
         caseinfo_keys = dict(caseinfo).keys()
 
@@ -161,6 +166,7 @@ class request_Util:
             for key, value in kwargs.items():
                 log.logger.info(f"{key} {value}")
                 if key in ["params", "data", "json"] and value:
+                    log.logger.info(f"要替换的参数和值为{key},{value}")
                     kwargs[key] = self.replace_args(value)
 
         sesseion = requests.session()

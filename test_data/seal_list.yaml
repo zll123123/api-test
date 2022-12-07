@@ -3,7 +3,7 @@
   request:
     method: GET
     url: /seal/list
-    json:
+    params:
       id: $csv{id}
       name: $csv{name}
       registerNo: $csv{registerNo}
@@ -11,7 +11,7 @@
       sealAttribute: $csv{sealAttribute}
       sealCategoryName: $csv{sealCategoryName}
   parameters:
-    case_name-id-name-registerNo-openCompanyId-sealAttribute-sealCategoryName: /data/seal_list.csv
+    case_name-id-name-registerNo-openCompanyId-sealAttribute-sealCategoryName: data/seal_list.csv
   expected:
     - eq: { 'code': 0 }
     - eq: { 'message': SUCCESS }

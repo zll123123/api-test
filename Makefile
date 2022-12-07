@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "修复创建接口替换参数失败问题" && git push
+	git add . && git commit -m "统一使用相对路径&csv数据使用;分割解析" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'

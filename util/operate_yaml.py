@@ -1,7 +1,7 @@
-import rootpath
+from rootpath import rootpath
 import yaml
+import os
 
-sys_path = rootpath.rootpath
 
 # 获取当前脚本的所在文件夹的路径
 
@@ -22,7 +22,7 @@ def write_yaml(yamlpath, data):
 
 
 def get_extract(key):
-    yamlpath = rootpath.rootpath + "/config/extract.yaml"
+    yamlpath = os.path.join(rootpath, "config/extract.yaml")
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
         return result[key]
