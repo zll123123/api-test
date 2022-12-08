@@ -58,15 +58,13 @@ class request_Util:
     #         data = data
     #     return data
     # ${get_random_int}(1,500)
-    def replace_args(self, data):
-        log.logger.info(f"替换csv参数信息元数据为{data}")
+    def replace_expression(self, data):
 
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
         else:
             data_new = data
         for i in range(data_new.count("${")):
-            log.logger.info(f"{data_new}")
             if "${" in data_new and "}" in data_new:
                 fun_agrs = data_new[data_new.index("$") : data_new.index(")") + 1]
                 func = fun_agrs[fun_agrs.index("{") + 1 : fun_agrs.index("}")]
@@ -83,30 +81,24 @@ class request_Util:
             data = json.loads(data_new)
         else:
             data = data_new
-        log.logger.info(f"替换csv完成后的用例信息{data}")
         return data
 
     # 处理接口返回结果中的依赖数据
     def get_depend_data(self, caseinfo, res):
         if "extract" in dict(caseinfo).keys():
             # json提取
-            args_list = ""
+            extract_data = {}
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
-                if "." in value:
-                    depend_key = value.split(".")
-                    for item in depend_key:
-                        args_list += f"['{item}']"
-                else:
-                    args_list = f"['{value}']"
-                    # eval() 函数用来执行一个字符串表达式，并返回表达式的值。
-            if "result" in res.json():
-                extract_data = {key: eval(str(res.json()) + args_list)}
-                write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
+                depend_key = value.split(".")
+                args_list = ""
+                for item in depend_key:
+                    args_list += f"['{item}']"
+                extract_data[key] = eval(str(res.json()) + args_list)
+            write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
-        log.logger.info(f"读取yaml时获取的用例信息{caseinfo}")
         # 必须有的三个一级关键字name ,request,expected
         caseinfo_keys = dict(caseinfo).keys()
 
@@ -155,33 +147,30 @@ class request_Util:
     def send_request(self, case_name, url, method, headers, files, **kwargs):
         headers = self.default_header
         # 处理url
-        self.url = self.base_url + self.replace_args(url)
+        self.url = self.base_url + self.replace_expression(url)
 
         self.lastmethod = method.lower()
         # 处理header
         if headers and isinstance(headers, dict):
-            headers = self.replace_args(headers)
+            headers = self.replace_expression(headers)
         # 处理请求参数，需要处理的是params ,data,json等,此处的可变参数接受到的值不确定是那种，但只对这三种处理
         if isinstance(kwargs, dict):
             for key, value in kwargs.items():
-                log.logger.info(f"{key} {value}")
                 if key in ["params", "data", "json"] and value:
-                    log.logger.info(f"要替换的参数和值为{key},{value}")
-                    kwargs[key] = self.replace_args(value)
+                    kwargs[key] = self.replace_expression(value)
 
         sesseion = requests.session()
         log.logger.info(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files},请求参数{kwargs}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files}"
         )
 
         res = sesseion.request(
             url=self.url, method=self.lastmethod, headers=headers, **kwargs
         )
-        log.logger.info(f"接口响应结果为{res.json()}")
         return res
 
     def assert_result(self, expect, res):
-        log.logger.info(f"预期{expect},实际结果为{res.json()}")
+        log.logger.info(f"预期{expect},实际结果为{res}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):

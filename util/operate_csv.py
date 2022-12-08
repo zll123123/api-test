@@ -1,7 +1,7 @@
 import csv
 import json
 import os
-from util import log
+from util import log, validate
 from rootpath import rootpath
 
 
@@ -30,6 +30,7 @@ def parse_csv(case_info):
             # 获取csv文件数据
             csv_data = read_csv(value)
             log.logger.info(f"csv_data{csv_data}")
+
             for x in range(1, len(csv_data)):  # x表示行数,数据从第一行开始
                 if len(csv_data[x]) != len(csv_data[0]):  # 下面的字段值与填写的字段key的个数不一致
                     break
@@ -38,11 +39,16 @@ def parse_csv(case_info):
                 for y in range(0, len(csv_data[x])):  # Y表示列数
                     if csv_data[0][y] in param_keys:
                         # 将caseinfo中的变量都替换掉
-                        temp_case_info = temp_case_info.replace(
-                            "$csv{" + csv_data[0][y] + "}", csv_data[x][y]
-                        )
+                        A = csv_data[0][y]
+                        B = csv_data[x][y]
+                        if "{" in B:
+                            A = f'"$csv{{{A}}}"'
+                        else:
+                            A = "$csv{" + A + "}"
+                        log.logger.info(f"""replacing {A} to {B}""")
+                        temp_case_info = temp_case_info.replace(A, B)
+                log.logger.info(f"temp_case_info: {temp_case_info}")
                 new_case_info.append(json.loads(temp_case_info))
-                log.logger.info(f"sub new_case_info length is {len(new_case_info)}")
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
 
@@ -52,5 +58,5 @@ def parse_csv(case_info):
 
 
 if __name__ == "__main__":
-    data = read_csv(os.path.join(rootpath, "data/create_seal.csv"))
-    print(data[0][1])
+    data = read_csv(os.path.join(rootpath, "data/seal_status.csv"))
+    print(data)
