@@ -39,15 +39,16 @@ def parse_csv(case_info):
                 for y in range(0, len(csv_data[x])):  # Y表示列数
                     if csv_data[0][y] in param_keys:
                         # 将caseinfo中的变量都替换掉
-                        A = csv_data[0][y]
-                        B = csv_data[x][y]
-                        if "{" in B:
-                            A = f'"$csv{{{A}}}"'
-                        else:
-                            A = "$csv{" + A + "}"
-                        log.logger.info(f"""replacing {A} to {B}""")
-                        temp_case_info = temp_case_info.replace(A, B)
+                        source = csv_data[0][y]
+                        target = csv_data[x][y]
+                        log.logger.info(f"""replacing {source} to {target}""")
+                        temp_case_info = temp_case_info.replace(
+                            f"$csv{{{source}}}", target
+                        )
                 log.logger.info(f"temp_case_info: {temp_case_info}")
+                import pdb
+
+                pdb.set_trace()
                 new_case_info.append(json.loads(temp_case_info))
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
