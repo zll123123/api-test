@@ -1,6 +1,8 @@
 import csv
 import json
 import os
+
+import util
 from util import log, validate
 from rootpath import rootpath
 
@@ -41,15 +43,16 @@ def parse_csv(case_info):
                         # 将caseinfo中的变量都替换掉
                         source = csv_data[0][y]
                         target = csv_data[x][y]
-                        log.logger.info(f"""replacing {source} to {target}""")
-                        temp_case_info = temp_case_info.replace(
-                            f"$csv{{{source}}}", target
-                        )
+                        isJson = validate.validate_json(target)
+                        if isJson:
+                            source = f'"$csv{{{source}}}"'
+                        else:
+                            source = f"$csv{{{source}}}"
+                        temp_case_info = temp_case_info.replace(source, target)
                 log.logger.info(f"temp_case_info: {temp_case_info}")
-                import pdb
 
-                pdb.set_trace()
                 new_case_info.append(json.loads(temp_case_info))
+
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
 

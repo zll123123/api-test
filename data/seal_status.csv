@@ -1,2 +1,2 @@
 case_name;category;method;sealRequest;company;enable;operatorInfo
-启用状态为normal的印章;ELECTRONIC;enable;{"id": "${get_extract}(sealId)"};;true;{"contact": "10000000001"}
+停用印章;ELECTRONIC;enable;{"id": "${get_extract}(sealId)"};;false;{"contact": "10000000001"}
