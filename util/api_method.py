@@ -157,11 +157,15 @@ class request_Util:
         if isinstance(kwargs, dict):
             for key, value in kwargs.items():
                 if key in ["params", "data", "json"] and value:
-                    kwargs[key] = self.replace_expression(value)
+                    # 如果存在参数值为空，则去掉此字符串传惨
+                    for k in list(value.keys()):
+                        if value[k] == "":
+                            value.pop(k)
+                kwargs[key] = self.replace_expression(value)
 
         sesseion = requests.session()
         log.logger.info(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files},请求参数为{kwargs}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files}，参数{kwargs}"
         )
 
         res = sesseion.request(
@@ -170,7 +174,7 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
-        log.logger.info(f"预期{expect},实际结果为{res.json()}")
+        log.logger.info(f"预期{expect},实际结果为{res}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):

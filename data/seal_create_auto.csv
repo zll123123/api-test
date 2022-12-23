@@ -1,0 +1,2 @@
+case_name;category;method;name;sealCategoryName;company;department;spec;operatorInfo;managers;users;customSealAttribute;openImageBlur;openSealId
+自动生成创建印章;ELECTRONIC;auto;自动生成印章01;财务专用章;{"name": "内部印章测试"};;CIRCULAR_40;{"contact":"13000000008"};{"contact":"13000000008"};{"contact":"13000000008"};{"innerContent":"印章测试","enterpriseCode":"1234567"};true;00001

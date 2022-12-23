@@ -1,0 +1,27 @@
+-
+  name: $csv{case_name}
+  request:
+    method: POST
+    url: /v2/seal/create
+    headers:
+      Content-Type: application/json
+    json:
+      category: $csv{category}
+      method: $csv{method}
+      name: $csv{name}
+      sealCategoryName: $csv{sealCategoryName}
+      company: $csv{company}
+      department: $csv{department}
+      spec: $csv{spec}
+      operatorInfo: $csv{operatorInfo}
+      managers: $csv{managers}
+      users: $cvs{users}
+      customSealAttribute: $csv{customSealAttribute}
+      openImageBlur: $csv{openImageBlur}
+      openSealId: $csv{openSealId}
+  parameters:
+    'case_name-category-method-sealCategoryName-company-name-spec-electronicModel-department-operatorInfo-managers-users
+    -customSealAttribute-openImageBlur-openSealId': data/seal_create_auto.csv
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }

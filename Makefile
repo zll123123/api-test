@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "兼容csv格式中的json数据格式" && git push
+	git add . && git commit -m "csv文件中的空值不传入接口处理" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'

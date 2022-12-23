@@ -1,8 +1,10 @@
 import os.path
 
+import loguru
 import pytest
 
 from rootpath import rootpath
+from util import log
 from util.api_method import request_Util
 
 from util.operate_csv import parse_csv
@@ -16,9 +18,11 @@ class Test_seal:
 
     @pytest.mark.parametrize(
         "new_case_info",
-        parse_csv(read_case_yaml(os.path.join(rootpath, "test_data/seal_create.yaml"))),
+        parse_csv(
+            read_case_yaml(os.path.join(rootpath, "test_data/company_seal_create.yaml"))
+        ),
     )
-    def test_create_seal(self, new_case_info):
+    def test_create_company_seal(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
     """
@@ -32,9 +36,14 @@ class Test_seal:
     def test_getseal_list(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    """
+    变更印章状态
+    """
+
     @pytest.mark.parametrize(
         "new_case_info",
         parse_csv(read_case_yaml(os.path.join(rootpath, "test_data/seal_status.yaml"))),
     )
-    def test_change_seal_status(self, new_case_info):
+    def test_change_sealstatus(self, new_case_info):
+        log.logger.info(f"new_case_info is {new_case_info}")
         request_Util().analyse_yaml(new_case_info)

@@ -1,2 +1,5 @@
 case_name;category;method;sealRequest;company;enable;operatorInfo
-停用印章;ELECTRONIC;enable;{"id": "${get_extract}(sealId)"};;false;{"contact": "10000000001"}
+停用电子印章;ELECTRONIC;enable;{"id": "${get_extract}(sealId)"};;false;{"contact": "10000000001"}
+启用电子印章;ELECTRONIC;enable;{"id": "${get_extract}(sealId)"};;true;{"contact": "13000000008"}
+注销电子印章;ELECTRONIC;revoke;{"id": "${get_extract}(sealId)"};;true;{"contact": "13000000008"}
+删除电子印章;ELECTRONIC;delete;{"id": "${get_extract}(sealId)"};;true;{"contact": "13000000008"}
