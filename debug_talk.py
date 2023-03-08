@@ -1,5 +1,6 @@
 import base64
 import random
+import time
 
 from rootpath import rootpath
 from util.operate_yaml import get_extract
@@ -23,7 +24,8 @@ class Debug_talk:
             b64_encode = "data:image/jpeg;base64,%s" % s
             # 返回base64编码字符串
             return b64_encode
-
+    def GenTimestamp(self):
+        return time.time()
 
 if __name__ == "__main__":
     path = "./images/印章01.png"

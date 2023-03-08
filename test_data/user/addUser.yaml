@@ -1,0 +1,14 @@
+-
+  name: 添加员工
+  request:
+    method: post
+    url: /employee/create
+    json:
+      name: 三八
+      contact: 13000000008
+      password: qiyuesuo#2020
+      companyName:
+      cardNo: 4556
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }

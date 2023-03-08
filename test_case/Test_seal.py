@@ -12,6 +12,11 @@ from util.operate_yaml import read_case_yaml
 
 
 class Test_seal:
+
+
+
+
+
     """
     创建印章接口
     """
