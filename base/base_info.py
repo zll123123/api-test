@@ -25,5 +25,6 @@ class login_info:
             "x-qys-timestamp": self.time,
         }
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     getData()

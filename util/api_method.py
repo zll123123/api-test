@@ -59,6 +59,7 @@ class request_Util:
     #     return data
     # ${get_random_int}(1,500)
     def replace_expression(self, data):
+        log.logger.info(f"data is {data}")
 
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
@@ -72,11 +73,14 @@ class request_Util:
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
                 # *号的作用是解包，相当于去除['1', '500'] []
                 args_list = args.split(":")  # split方法分割符不存在时，返回原字符串
-
+                log.logger.info(f"args_list is {args_list}")git
+                # import pdb
+                #
+                # pdb.set_trace()
                 # 此处使用的是反射原理
                 value = getattr(Debug_talk(), func)(*args_list)
                 data_new = data_new.replace(fun_agrs, str(value))
-
+                log.logger.info(f"替换后的字符串为{data_new}")
         if isinstance(data, dict):
             data = json.loads(data_new)
         else:
@@ -99,6 +103,7 @@ class request_Util:
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
+        print(f"caseinfo is {caseinfo}")
         # 必须有的三个一级关键字name ,request,expected
         caseinfo_keys = dict(caseinfo).keys()
 

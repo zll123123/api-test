@@ -4,10 +4,10 @@
     method: post
     url: /employee/create
     json:
-      name: 三八
-      contact: 13000000008
+      name: 三九
+      contact: 13000000009
       password: qiyuesuo#2020
-      companyName:
+      companyName: ${companyName}
       cardNo: 4556
   expected:
     - eq: { 'code': 0 }

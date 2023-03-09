@@ -9,4 +9,3 @@ from util.operate_yaml import clean_yaml
 def clear_extract():
     yamlpath = os.path.join(rootpath, "config/extract.yaml")
     clean_yaml(yamlpath)
-

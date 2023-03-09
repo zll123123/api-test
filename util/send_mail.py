@@ -10,7 +10,7 @@ class SendEmail:
     global email_host
     global password
     password = "hwkkecphqauxdgjd"
-    email_host ="smtp.qq.com"
+    email_host = "smtp.qq.com"
     send_user = "2806341129@qq.com"
 
     def send_mail(self, user_list, sub, content):
@@ -46,5 +46,6 @@ class SendEmail:
         content = "接口自动化测试结果:见附件"
         self.send_mail(user_list, sub, content)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     SendEmail().send_main()

@@ -1,6 +1,6 @@
 import sys, time, datetime
 
-sys.path.append('../db_init')
+sys.path.append("../db_init")
 try:
     from mysql_conn import DB
 except ImportError:
@@ -13,12 +13,10 @@ past_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time() - 1000
 future_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time() + 10000))
 
 # 获取当前时间
-now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # create data
-user_data = {
-
-}
+user_data = {}
 
 
 # Inster table datas
@@ -26,5 +24,5 @@ def init_data():
     DB().init_data()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     init_data()
