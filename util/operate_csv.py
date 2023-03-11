@@ -55,7 +55,6 @@ def parse_csv(case_info):
 
         log.logger.info(f"new_case_info length is {len(new_case_info)}")
         return new_case_info
-
     else:
         log.logger.info(f"parameters not in keys {case_info_keys}")
         return case_info

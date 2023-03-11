@@ -72,11 +72,10 @@ class request_Util:
 
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
                 # *号的作用是解包，相当于去除['1', '500'] []
-                args_list = args.split(":")  # split方法分割符不存在时，返回原字符串
-                log.logger.info(f"args_list is {args_list}")git
-                # import pdb
-                #
-                # pdb.set_trace()
+                args_list = args.split(":")
+                # split方法分割符不存在时，返回原字符串
+                if not args:
+                    args_list = ()
                 # 此处使用的是反射原理
                 value = getattr(Debug_talk(), func)(*args_list)
                 data_new = data_new.replace(fun_agrs, str(value))
@@ -103,7 +102,7 @@ class request_Util:
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
-        print(f"caseinfo is {caseinfo}")
+        log.logger.info(f"caseinfo is {caseinfo}")
         # 必须有的三个一级关键字name ,request,expected
         caseinfo_keys = dict(caseinfo).keys()
 
@@ -122,7 +121,7 @@ class request_Util:
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
                 headers = self.default_header
-                files = None
+                files = caseinfo["request"]["files"]
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
                     headers = caseinfo["request"]["headers"]
                     headers = self.default_header.update(headers)
@@ -132,6 +131,7 @@ class request_Util:
                     files = caseinfo["request"].pop("files")
                 caseinfo["request"].pop("url")
                 caseinfo["request"].pop("method")
+
                 res = self.send_request(
                     case_name,
                     url=url,
@@ -179,7 +179,7 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
-        log.logger.info(f"预期{expect},实际结果为{res}")
+        log.logger.info(f"预期{expect},实际结果为{res.json()}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):

@@ -28,6 +28,11 @@ class Debug_talk:
     def GenTimestamp(self):
         return time.time()
 
+    def upload_file(self, file_path):
+        path = rootpath + file_path
+        file = {"file": open(path, "rb")}
+        return file
+
 
 if __name__ == "__main__":
     path = "./images/印章01.png"

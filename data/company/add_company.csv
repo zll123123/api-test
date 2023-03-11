@@ -1,2 +1,2 @@
 case_name;name;license;legalAuthorization;registerNo;legalPerson;paperType;legalPersonId;charger;mobile;tenantType
-创建内部法人单位;内部印章测试${GenTimestamp}();${image_to_base64}(/images/营业执照.png);${image_to_base64}(/images/法人授权书.png);422${GenTimestamp}();三八;PASSPORT;3838;三八;13000000008;INNER_COMPANY
+创建内部法人单位;内部印章测试${GenTimestamp}();${upload_file}(/images/营业执照.png);${upload_file}(/images/法人授权书.png);422${GenTimestamp}();四一;PASSPORT;3838;四一;14000000001;INNER_COMPANY
