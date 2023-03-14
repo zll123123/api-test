@@ -26,7 +26,7 @@ class Debug_talk:
             return b64_encode
 
     def GenTimestamp(self):
-        return time.time()
+        return int(time.time())
 
     def upload_file(self, file_path):
         path = rootpath + file_path

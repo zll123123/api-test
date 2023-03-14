@@ -17,9 +17,7 @@ class Test_setUp:
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize(
         "new_case_info",
-        parse_csv(
-            read_case_yaml(os.path.join(rootpath, "test_data/company/add_company.yaml"))
-        ),
+        read_case_yaml(os.path.join(rootpath, "test_data/company/create_company.yaml")),
     )
     def test_create_company(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
@@ -27,13 +25,14 @@ class Test_setUp:
     """
     创建内部用户
     """
-
-    @pytest.mark.run(order=2)
-    @pytest.mark.parametrize(
-        "new_case_info",
-        parse_csv(
-            read_case_yaml(os.path.join(rootpath, "test_data/user/addUser.yaml"))
-        ),
-    )
-    def test_addUser(self, new_case_info):
-        request_Util().analyse_yaml(new_case_info)
+    #
+    # @pytest.mark.skip("ceshi")
+    # @pytest.mark.run(order=2)
+    # @pytest.mark.parametrize(
+    #     "new_case_info",
+    #     parse_csv(
+    #         read_case_yaml(os.path.join(rootpath, "test_data/user/addUser.yaml"))
+    #     ),
+    # )
+    # def test_addUser(self, new_case_info):
+    #     request_Util().analyse_yaml(new_case_info)

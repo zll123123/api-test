@@ -158,6 +158,8 @@ class request_Util:
         # 处理header
         if headers and isinstance(headers, dict):
             headers = self.replace_expression(headers)
+        if files and isinstance(files, dict):
+            files = self.replace_expression(files)
         # 处理请求参数，需要处理的是params ,data,json等,此处的可变参数接受到的值不确定是那种，但只对这三种处理
         if isinstance(kwargs, dict):
             for key, value in kwargs.items():

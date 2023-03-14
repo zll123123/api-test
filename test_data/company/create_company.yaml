@@ -1,0 +1,25 @@
+-
+  name:  创建内部法人单位
+  request:
+    method: POST
+    url: /company/create
+    headers:
+      Content-Type: multipart/form-data
+    data:
+      name: 内部印章测试${GenTimestamp}()
+      registerNo: 422${GenTimestamp}()
+      legalPerson: 四一
+      paperType: PASSPORT
+      legalPersonId: 3838
+      charger: 四一
+      mobile: 14000000001
+      tenantType: INNER_COMPANY
+    files:
+      license: ${upload_file}(/images/营业执照.png)
+      legalAuthorization: ${upload_file}(/images/法人授权书.png)
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':SUCCESS }
+  extract:
+    companyId : result.id
+    companyName: result.name

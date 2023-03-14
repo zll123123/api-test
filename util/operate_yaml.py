@@ -1,6 +1,11 @@
+import json
+
 from rootpath import rootpath
 import yaml
 import os
+
+from util import log, validate
+from util.operate_csv import read_csv
 
 
 # 获取当前脚本的所在文件夹的路径
@@ -27,19 +32,23 @@ def get_extract(key):
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
         return result[key]
 
-    # 读取caseinfo文件
+    # 读取caseinfo文
 
 
 def read_case_yaml(yamlpath):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         caseinfo = yaml.load(stream=f, Loader=yaml.FullLoader)
-        return caseinfo[0]
+        log.logger.info(f"caseinfo is {caseinfo}")
+        return caseinfo
 
 
 # w' 以写入的方式打开文件，会覆盖已存在的文件,保持每次进行接口测试时的数据都是最
 def clean_yaml(yamlpath):
     with open(yamlpath, mode="w") as f:
         f.truncate()
+
+
+
 
 
 if __name__ == "__main__":
