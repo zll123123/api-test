@@ -48,8 +48,5 @@ def clean_yaml(yamlpath):
         f.truncate()
 
 
-
-
-
 if __name__ == "__main__":
     read_case_yaml("../test_data/seal_list.yaml")

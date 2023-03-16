@@ -1,6 +1,8 @@
 import hashlib
 import json
 import os
+import random
+import uuid
 from datetime import time
 import time
 import jsonpath as jsonpath
@@ -11,6 +13,7 @@ import requests
 from debug_talk import Debug_talk
 from rootpath import rootpath
 from util.operate_yaml import getData, write_yaml
+from util.upload_file import upload_file
 
 
 class request_Util:
@@ -155,11 +158,19 @@ class request_Util:
         self.url = self.base_url + self.replace_expression(url)
 
         self.lastmethod = method.lower()
+        boundary = uuid.uuid4().hex
+
         # 处理header
         if headers and isinstance(headers, dict):
             headers = self.replace_expression(headers)
+
         if files and isinstance(files, dict):
-            files = self.replace_expression(files)
+            file_map = {}
+            for filekey in files:
+                filepath = files[filekey]
+                filevalue = upload_file(filepath)
+                file_map[filekey] = filevalue
+
         # 处理请求参数，需要处理的是params ,data,json等,此处的可变参数接受到的值不确定是那种，但只对这三种处理
         if isinstance(kwargs, dict):
             for key, value in kwargs.items():
@@ -172,11 +183,15 @@ class request_Util:
 
         sesseion = requests.session()
         log.logger.info(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{files}，参数{kwargs}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
         )
 
-        res = sesseion.request(
-            url=self.url, method=self.lastmethod, headers=headers, **kwargs
+        res = requests.request(
+            url=self.url,
+            method=self.lastmethod,
+            headers=headers,
+            files=file_map,
+            **kwargs
         )
         return res
 
