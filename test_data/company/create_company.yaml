@@ -6,11 +6,11 @@
     data:
       name: 内部印章测试${GenTimestamp}()
       registerNo: 422${GenTimestamp}()
-      legalPerson: 四一
+      legalPerson: 四三
       paperType: PASSPORT
       legalPersonId: 3838
-      charger: 四一
-      mobile: 14000000001
+      charger: 四三
+      mobile: 14000000003
       tenantType: INNER_COMPANY
     files:
       license: /images/营业执照.png
@@ -21,3 +21,4 @@
   extract:
     companyId : result.id
     companyName: result.name
+

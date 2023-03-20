@@ -124,14 +124,15 @@ class request_Util:
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
                 headers = self.default_header
-                files = caseinfo["request"]["files"]
+                files=None
+                if jsonpath.jsonpath(caseinfo, "$..files"):
+                    files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
                     headers = caseinfo["request"]["headers"]
                     headers = self.default_header.update(headers)
                     caseinfo["request"].pop("headers")
 
-                if jsonpath.jsonpath(caseinfo, "$..files"):
-                    files = caseinfo["request"].pop("files")
+
                 caseinfo["request"].pop("url")
                 caseinfo["request"].pop("method")
 
@@ -140,7 +141,7 @@ class request_Util:
                     url=url,
                     method=method,
                     headers=self.default_header if not headers else headers,
-                    files=files,
+                    files=None if not files else files,
                     **caseinfo["request"],
                 )
                 self.assert_result(caseinfo["expected"], res)
@@ -163,9 +164,8 @@ class request_Util:
         # 处理header
         if headers and isinstance(headers, dict):
             headers = self.replace_expression(headers)
-
+        file_map = {}
         if files and isinstance(files, dict):
-            file_map = {}
             for filekey in files:
                 filepath = files[filekey]
                 filevalue = upload_file(filepath)

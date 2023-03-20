@@ -1,0 +1,15 @@
+-
+  name: 认证员工
+  request:
+    method: post
+    url: /userauth/authurl2
+    headers:
+      Content-Type: application/json
+    json:
+      mobile: 14000000003
+      name: 四三
+      authMode: DEFAULT
+      paperType: PASSPORT
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
