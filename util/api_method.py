@@ -12,7 +12,7 @@ import requests
 
 from debug_talk import Debug_talk
 from rootpath import rootpath
-from util.operate_yaml import getData, write_yaml
+from util.operate_yaml import getData, write_yaml, read_commData
 from util.upload_file import upload_file
 
 
@@ -62,6 +62,7 @@ class request_Util:
     #     return data
     # ${get_random_int}(1,500)
     def replace_expression(self, data):
+        comm_path = os.path.join(rootpath, "config/common_data.yaml")
         log.logger.info(f"data is {data}")
 
         if isinstance(data, dict):
@@ -72,15 +73,17 @@ class request_Util:
             if "${" in data_new and "}" in data_new:
                 fun_agrs = data_new[data_new.index("$") : data_new.index(")") + 1]
                 func = fun_agrs[fun_agrs.index("{") + 1 : fun_agrs.index("}")]
-
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
                 # *号的作用是解包，相当于去除['1', '500'] []
                 args_list = args.split(":")
+                if "common_data" in func:
+                    value = read_commData(comm_path, *args_list)
                 # split方法分割符不存在时，返回原字符串
-                if not args:
-                    args_list = ()
-                # 此处使用的是反射原理
-                value = getattr(Debug_talk(), func)(*args_list)
+                elif not args:
+                    # 此处使用的是反射原理
+                    value = getattr(Debug_talk(), func)()
+                else:
+                    value = getattr(Debug_talk(), func)(*args_list)
                 data_new = data_new.replace(fun_agrs, str(value))
                 log.logger.info(f"替换后的字符串为{data_new}")
         if isinstance(data, dict):
@@ -124,14 +127,13 @@ class request_Util:
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
                 headers = self.default_header
-                files=None
+                files = None
                 if jsonpath.jsonpath(caseinfo, "$..files"):
                     files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
                     headers = caseinfo["request"]["headers"]
                     headers = self.default_header.update(headers)
                     caseinfo["request"].pop("headers")
-
 
                 caseinfo["request"].pop("url")
                 caseinfo["request"].pop("method")
@@ -191,7 +193,7 @@ class request_Util:
             method=self.lastmethod,
             headers=headers,
             files=file_map,
-            **kwargs
+            **kwargs,
         )
         return res
 
