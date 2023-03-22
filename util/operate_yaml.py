@@ -52,7 +52,7 @@ def read_case_yaml(yamlpath):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         caseinfo = yaml.load(stream=f, Loader=yaml.FullLoader)
         log.logger.info(f"caseinfo is {caseinfo}")
-        return caseinfo
+        return caseinfo[0]
 
 
 # w' 以写入的方式打开文件，会覆盖已存在的文件,保持每次进行接口测试时的数据都是最

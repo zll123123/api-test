@@ -13,7 +13,7 @@
       enable: $csv{enable}
       operatorInfo: $csv{operatorInfo}
   parameters:
-    case_name-category-method-sealRequest-company-enable-operatorInfo: data/seal_status.csv
+    case_name-category-method-sealRequest-company-enable-operatorInfo: data/seal/seal_status.csv
   expected:
     - eq: { 'code': 0 }
     - eq: { 'message': SUCCESS }

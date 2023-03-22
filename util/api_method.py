@@ -161,7 +161,7 @@ class request_Util:
         self.url = self.base_url + self.replace_expression(url)
 
         self.lastmethod = method.lower()
-        boundary = uuid.uuid4().hex
+
 
         # 处理header
         if headers and isinstance(headers, dict):
@@ -188,7 +188,7 @@ class request_Util:
             f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
         )
 
-        res = requests.request(
+        res = sesseion.request(
             url=self.url,
             method=self.lastmethod,
             headers=headers,
@@ -203,8 +203,6 @@ class request_Util:
             for item in expect:
                 if item and isinstance(item, dict):
                     for key, value in item.items():
-                        log.logger.info(f"key为{key},value为{value}")
-
                         # 相等断言
                         if "eq" == key:
                             if value and isinstance(value, dict):

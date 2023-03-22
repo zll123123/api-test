@@ -26,12 +26,13 @@ class Test_setUp:
     个人实名认证
     """
 
-    # @pytest.mark.run(order=2)
-    # @pytest.mark.parametrize(
-    #     "new_case_info",
-    #
-    #         read_case_yaml(os.path.join(rootpath, "test_data/user/auth_user.yaml")
-    #     ),
-    # )
-    # def test_authUser(self, new_case_info):
-    #     request_Util().analyse_yaml(new_case_info)
+
+    @pytest.mark.parametrize(
+        "new_case_info",
+
+            read_case_yaml(os.path.join(rootpath, "test_data/user/auth_user.yaml")
+        )
+    )
+    @pytest.mark.skip(reason="数据已存在，暂时先跳过")
+    def test_authUser(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)

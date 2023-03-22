@@ -20,6 +20,7 @@ def read_csv(csv_path):
 
 # 解析csv文件
 def parse_csv(case_info):
+    log.logger.info(f"case_info is {case_info}")
     new_case_info = []
     case_info_keys = dict(case_info).keys()
     if "parameters" in case_info_keys:

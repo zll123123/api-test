@@ -1,5 +1,6 @@
 import pytest
 
 if __name__ == "__main__":
-    pytest.main(["./test_case/Test_setUpData.py", "-s"])
-    #  pytest.main(["./test_case/Test_seal.py::Test_seal::test_createseal", "-s"])
+    # pytest.main(["./test_case/test_setUpData.py", "-s"])
+    pytest.main([ "-s",""])
+    #  pytest.main(["./test_case/test_seal.py::Test_seal::test_change_sealstatus", "-s"])

@@ -4,9 +4,9 @@
     method: post
     url: /employee/create
     json:
-      name: 三九
-      contact: 13000000009
-      password: qiyuesuo#2020
+      name: ${common_data}(userName)
+      contact: ${common_data}(userMobile)
+      password: ${common_data}(password)
       companyName: ${companyName}
       cardNo: 4556
   expected:

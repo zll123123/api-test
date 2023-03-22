@@ -6,8 +6,8 @@
     headers:
       Content-Type: application/json
     json:
-      mobile: 14000000003
-      name: 四三
+      mobile: ${common_data}(userMobile)
+      name: ${common_data}(userName)
       authMode: DEFAULT
       paperType: PASSPORT
   expected:
