@@ -15,7 +15,7 @@
       spec: $csv{spec}
       operatorInfo: $csv{operatorInfo}
       managers: $csv{managers}
-      users: $cvs{users}
+      users: $csv{users}
       customSealAttribute: $csv{customSealAttribute}
       openImageBlur: $csv{openImageBlur}
       openSealId: $csv{openSealId}

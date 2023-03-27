@@ -1,8 +1,12 @@
 # coding:utf-8
+import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import datetime
+from rootpath import rootpath
+
+
 class SendEmail:
     global send_user
     global email_host
@@ -24,9 +28,9 @@ class SendEmail:
         message.attach(MIMEText(content, "plain", "utf-8"))
 
         # 构造附件（附件为HTML格式的网页）
-        filename = "../report/report.html"
+        report_path = os.path.join(rootpath,"report/report.html")
         time = datetime.date.today()
-        att = MIMEText(open(filename, "rb").read(), "html", "utf-8")
+        att = MIMEText(open(report_path, "rb").read(), "html", "utf-8")
         att["Content-Type"] = "application/octet-stream"
         att["Content-Disposition"] = 'attachment; filename="%s_Result.html"' % time
         message.attach(att)

@@ -11,14 +11,13 @@ from util.operate_yaml import read_case_yaml
 
 
 class Test_seal:
-
     @pytest.mark.parametrize(
         "new_case_info",
         parse_csv(
             read_case_yaml(
                 os.path.join(rootpath, "test_data/seal/company_seal_create.yaml")
             )
-        )
+        ),
     )
     @pytest.mark.run(order=2)
     def test_create_company_seal(self, new_case_info):

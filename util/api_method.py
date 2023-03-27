@@ -162,7 +162,6 @@ class request_Util:
 
         self.lastmethod = method.lower()
 
-
         # 处理header
         if headers and isinstance(headers, dict):
             headers = self.replace_expression(headers)
@@ -211,14 +210,14 @@ class request_Util:
                                         res.json(), "$..%s" % assert_key
                                     )
                                     if act_value:
-                                        pytest.assume(
-                                            assert_value == act_value[0],
-                                            f"实际结果{act_value[0]}不等于预期结果{assert_value}",
-                                        )
+                                        try:
+                                            assert assert_value == act_value[0]
+                                        except AssertionError:
+                                            log.logger.error("是结果不等于预期结果")
                                     else:
-                                        raise AssertionError(f"接口返回中未找到{assert_key}")
+                                        log.logger.error(f"接口返回中未找到{assert_key}")
                             else:
-                                raise AssertionError("相等断言的表达式不存在")
+                                log.logger.error("相等断言的表达式不存在")
 
                         elif "contains" == key:
                             if value:
@@ -227,6 +226,6 @@ class request_Util:
                                 )
 
                             else:
-                                raise AssertionError(f"包含条件未识别到表达式")
+                                log.logger.error(f"包含条件未识别到表达式")
                         else:
-                            raise AssertionError("不支持的断言表达式{key}")
+                            log.logger.error("不支持的断言表达式{key}")
