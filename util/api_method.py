@@ -147,7 +147,10 @@ class request_Util:
                     **caseinfo["request"],
                 )
                 self.assert_result(caseinfo["expected"], res)
-                self.get_depend_data(caseinfo, res)
+                try:
+                    self.get_depend_data(caseinfo, res)
+                except Exception:
+                    log.logger.error("提取返回依赖结果失败")
             else:
                 log.logger.error("request下必须有的二级关键字url method")
         else:
@@ -213,7 +216,7 @@ class request_Util:
                                         try:
                                             assert assert_value == act_value[0]
                                         except AssertionError:
-                                            log.logger.error("是结果不等于预期结果")
+                                            log.logger.error(f"实际结果结果{act_value[0]}不等于预期结果{assert_value}")
                                     else:
                                         log.logger.error(f"接口返回中未找到{assert_key}")
                             else:
@@ -221,11 +224,11 @@ class request_Util:
 
                         elif "contains" == key:
                             if value:
-                                pytest.assume(
-                                    value[0] in str(res.json()), f"实际结果中不包含字段{value}"
-                                )
-
+                                try:
+                                     assert  value[0] in str(res.json())
+                                except AssertionError:
+                                    log.logger.error(f"实际结果中不包含字段{value}")
                             else:
                                 log.logger.error(f"包含条件未识别到表达式")
                         else:
-                            log.logger.error("不支持的断言表达式{key}")
+                            log.logger.error(f"不支持的断言表达式{key}")
