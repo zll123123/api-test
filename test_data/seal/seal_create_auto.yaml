@@ -14,13 +14,13 @@
       department: $csv{department}
       spec: $csv{spec}
       operatorInfo: $csv{operatorInfo}
-      managers: $csv{managers}
-      users: $csv{users}
+      manager: $csv{manager}
+      user: $csv{user}
       customSealAttribute: $csv{customSealAttribute}
       openImageBlur: $csv{openImageBlur}
       openSealId: $csv{openSealId}
   parameters:
-    'case_name-category-method-sealCategoryName-company-name-spec-electronicModel-department-operatorInfo-managers-users-customSealAttribute-openImageBlur-openSealId': data/seal/seal_create_auto.csv
+    'case_name-category-method-sealCategoryName-company-name-spec-electronicModel-department-operatorInfo-manager-user-customSealAttribute-openImageBlur-openSealId': data/seal/seal_create_auto.csv
   expected:
     - eq: { 'code': 0 }
     - eq: { 'message': SUCCESS }

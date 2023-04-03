@@ -17,7 +17,7 @@ class Test_setUp:
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize(
         "new_case_info",
-        read_case_yaml(os.path.join(rootpath, "test_data/company/create_company.yaml"))
+        read_case_yaml(os.path.join(rootpath, "test_data/company/create_company.yaml")),
     )
     def test_create_company(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)

@@ -59,7 +59,5 @@ def parse_csv(case_info):
     return new_case_info
 
 
-
 if __name__ == "__main__":
     data = read_csv(os.path.join(rootpath, "data/seal_status.csv"))
-

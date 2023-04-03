@@ -216,7 +216,9 @@ class request_Util:
                                         try:
                                             assert assert_value == act_value[0]
                                         except AssertionError:
-                                            log.logger.error(f"实际结果结果{act_value[0]}不等于预期结果{assert_value}")
+                                            log.logger.error(
+                                                f"实际结果结果{act_value[0]}不等于预期结果{assert_value}"
+                                            )
                                     else:
                                         log.logger.error(f"接口返回中未找到{assert_key}")
                             else:
@@ -225,7 +227,7 @@ class request_Util:
                         elif "contains" == key:
                             if value:
                                 try:
-                                     assert  value[0] in str(res.json())
+                                    assert value[0] in str(res.json())
                                 except AssertionError:
                                     log.logger.error(f"实际结果中不包含字段{value}")
                             else:
