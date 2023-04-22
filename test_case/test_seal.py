@@ -1,6 +1,7 @@
 import os.path
 
 import pytest
+import allure
 
 from rootpath import rootpath
 from util import log
@@ -20,6 +21,7 @@ class Test_seal:
         ),
     )
     @pytest.mark.run(order=2)
+    @allure.story("创建企业公章")
     def test_create_company_seal(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
@@ -36,6 +38,7 @@ class Test_seal:
         ),
     )
     @pytest.mark.run(order=3)
+    @allure.story("v2接口创建印章")
     def test_auto_create_seal(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
@@ -50,6 +53,7 @@ class Test_seal:
         ),
     )
     @pytest.mark.run(order=4)
+    @allure.story("获取印章列表接口")
     def test_getseal_list(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
@@ -64,6 +68,7 @@ class Test_seal:
         ),
     )
     @pytest.mark.run(order=5)
+    @allure.story("变更印章状态")
     def test_change_sealstatus(self, new_case_info):
         log.logger.info(f"new_case_info is {new_case_info}")
         request_Util().analyse_yaml(new_case_info)

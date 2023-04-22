@@ -5,6 +5,8 @@ import random
 import uuid
 from datetime import time
 import time
+
+import allure
 import jsonpath as jsonpath
 from util import log
 import pytest
@@ -189,7 +191,9 @@ class request_Util:
         log.logger.info(
             f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
         )
-
+        allure.attach(
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
+        )
         res = sesseion.request(
             url=self.url,
             method=self.lastmethod,
@@ -201,6 +205,8 @@ class request_Util:
 
     def assert_result(self, expect, res):
         log.logger.info(f"预期{expect},实际结果为{res.json()}")
+        with allure.step("进入断言"):
+            allure.attach(f"预期{expect},实际接口响应为{res.json()}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):
@@ -219,10 +225,15 @@ class request_Util:
                                             log.logger.error(
                                                 f"实际结果结果{act_value[0]}不等于预期结果{assert_value}"
                                             )
+                                            allure.attach(
+                                                f"实际结果结果{act_value[0]}不等于预期结果{assert_value}"
+                                            )
                                     else:
                                         log.logger.error(f"接口返回中未找到{assert_key}")
+                                        allure.attach(f"接口返回中未找到{assert_key}")
                             else:
                                 log.logger.error("相等断言的表达式不存在")
+                                allure.attach("相等断言的表达式不存在")
 
                         elif "contains" == key:
                             if value:
@@ -230,7 +241,10 @@ class request_Util:
                                     assert value[0] in str(res.json())
                                 except AssertionError:
                                     log.logger.error(f"实际结果中不包含字段{value}")
+                                    allure.attach(f"实际结果中不包含字段{value}")
                             else:
-                                log.logger.error(f"包含条件未识别到表达式")
+                                log.logger.error(f"包含条件未识别到表达式{key}")
+                                allure.attach(f"包含条件未识别到表达式{key}")
                         else:
                             log.logger.error(f"不支持的断言表达式{key}")
+                            allure.attach(f"不支持的断言表达式{key}")

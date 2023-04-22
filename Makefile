@@ -1,6 +1,6 @@
 run:
 	python3 -m black .
-	python3 main.py
+	python3 main.py 
 
 push:
 	python3 -m black .
