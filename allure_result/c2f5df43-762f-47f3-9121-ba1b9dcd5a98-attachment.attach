@@ -1,0 +1,1 @@
+请求用例->获取电子印章列表,请求地址->http://192.168.40.210:9182/seal/list,请求方式->get,请求头->{'x-qys-accesstoken': 'Kidx7OMpS3', 'x-qys-signature': '34a251609145e9b566cf0075d4c7069b', 'x-qys-timestamp': '1684856610022'},files->{}，参数{'params': {'sealAttribute': 'ELECTRONIC'}}

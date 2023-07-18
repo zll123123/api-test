@@ -1,0 +1,1 @@
+请求用例->获取平台方的印章列表,请求地址->http://192.168.40.210:9182/seal/list,请求方式->get,请求头->{'x-qys-accesstoken': 'Kidx7OMpS3', 'x-qys-signature': '06994f6d438c005078f0470ee23b2706', 'x-qys-timestamp': '1684856534778'},files->{}，参数{'params': {}}

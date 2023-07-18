@@ -21,7 +21,7 @@ from util.upload_file import upload_file
 class request_Util:
     def __init__(self):
         yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
-        self.base_url = getData(yamlpath, "apitest", "address")
+        self.base_url = getData(yamlpath, "apitest", "openurl")
 
         appSecret = getData(yamlpath, "apitest", "app_secret")
         app_token = getData(yamlpath, "apitest", "app_token")

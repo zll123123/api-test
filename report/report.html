@@ -243,9 +243,45 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 05-Apr-2023 at 22:34:30 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <p>Report generated on 23-May-2023 at 23:44:45 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
+      <tr>
+        <td>BUILD_ID</td>
+        <td>8</td></tr>
+      <tr>
+        <td>BUILD_NUMBER</td>
+        <td>8</td></tr>
+      <tr>
+        <td>BUILD_TAG</td>
+        <td>jenkins-auto_apitest-8</td></tr>
+      <tr>
+        <td>BUILD_URL</td>
+        <td><a href="http://localhost:8080/job/auto_apitest/8/" target="_blank">http://localhost:8080/job/auto_apitest/8/</a></td></tr>
+      <tr>
+        <td>CI</td>
+        <td>true</td></tr>
+      <tr>
+        <td>EXECUTOR_NUMBER</td>
+        <td>0</td></tr>
+      <tr>
+        <td>GIT_BRANCH</td>
+        <td>origin/main</td></tr>
+      <tr>
+        <td>GIT_COMMIT</td>
+        <td>3e335b5b2c74da119915265ccff43eea6d408cf3</td></tr>
+      <tr>
+        <td>GIT_URL</td>
+        <td><a href="https://github.com/zll123123/api-test" target="_blank">https://github.com/zll123123/api-test</a></td></tr>
+      <tr>
+        <td>JENKINS_URL</td>
+        <td><a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a></td></tr>
+      <tr>
+        <td>JOB_NAME</td>
+        <td>auto_apitest</td></tr>
+      <tr>
+        <td>NODE_NAME</td>
+        <td>master</td></tr>
       <tr>
         <td>Packages</td>
         <td>{"pluggy": "0.13.1", "py": "1.10.0", "pytest": "4.6.11"}</td></tr>
@@ -257,10 +293,13 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>{"Faker": "8.8.1", "allure-pytest": "2.9.42", "assume": "2.4.3", "forked": "1.3.0", "html": "3.1.1", "metadata": "1.11.0", "ordering": "0.6", "rerunfailures": "9.1.1", "xdist": "2.3.0"}</td></tr>
       <tr>
         <td>Python</td>
-        <td>3.8.9</td></tr></table>
+        <td>3.8.9</td></tr>
+      <tr>
+        <td>WORKSPACE</td>
+        <td>/Users/layla.zhang/.jenkins/workspace/auto_apitest</td></tr></table>
     <h2>Summary</h2>
-    <p>1 tests ran in 15.48 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">1 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="rerun">0 rerun</span>
+    <p>11 tests ran in 226.56 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">1 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">11 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="rerun">0 rerun</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -271,11 +310,110 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
           <th class="sortable links" col="links">Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="passed results-table-row">
+      <tbody class="failed results-table-row">
         <tr>
-          <td class="col-result">Passed</td>
+          <td class="col-result">Failed</td>
           <td class="col-name">test_case/test_setUpData.py::Test_setUp::test_create_company[new_case_info0]</td>
-          <td class="col-duration">0.04</td>
+          <td class="col-duration">75.09</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_create_company_seal[new_case_info0]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_auto_create_seal[new_case_info0]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_getseal_list[new_case_info0]</td>
+          <td class="col-duration">75.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_getseal_list[new_case_info1]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_getseal_list[new_case_info2]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_getseal_list[new_case_info3]</td>
+          <td class="col-duration">75.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_change_sealstatus[new_case_info0]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_change_sealstatus[new_case_info1]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_change_sealstatus[new_case_info2]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">test_case/test_seal.py::Test_seal::test_change_sealstatus[new_case_info3]</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">test_case/test_setUpData.py::Test_setUp::test_authUser[new_case_info0]</td>
+          <td class="col-duration">0.00</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
