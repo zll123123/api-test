@@ -1,0 +1,4 @@
+SERVICE_NAME: layla_qiyuesuo
+SERVICE_DISPLAY_NAME: qiyuesuo
+SERVICE_PATH: r'C:\path\to\your\service.exe'
+URL: http://127.0.0.1:9181/
