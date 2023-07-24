@@ -1,4 +1,9 @@
-apitest :
-  app_token : Kidx7OMpS3
-  app_secret: VuxCTwaBccN37Mb4eMvgTHNcae8LaU
-  openurl: http://192.168.40.210:9182
+open:
+  apitest :
+    app_token : Kidx7OMpS3
+    app_secret: VuxCTwaBccN37Mb4eMvgTHNcae8LaU
+    openurl: http://192.168.40.210:9182
+license:
+  url: https://crm.qiyuesuo.me/api/crm/oss/customer/create?
+  cookie:
+

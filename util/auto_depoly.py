@@ -100,8 +100,6 @@ class MyService(win32serviceutil.ServiceFramework):
                 self.execute_start_bat(self.service_path)
             time.sleep(300)
             # 检查服务状态
-            self.check_service()
-
         else:
             logging.error(f"安装包数量异常")
 

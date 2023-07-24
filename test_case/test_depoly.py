@@ -16,3 +16,4 @@ class Test_depoly:
     @allure.title("windows下部署qiyuesuo服务")
     def test_depoly(self, new_case_info):
         MyService(**new_case_info).auto_depoly()
+        MyService.check_service()

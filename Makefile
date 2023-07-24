@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "基本完成自动部署脚本" && git push
+	git add . && git commit -m "开始自动激活测试" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'
