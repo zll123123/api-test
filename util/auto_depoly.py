@@ -6,7 +6,6 @@ import socket
 import os
 import logging
 import tarfile
-import pywin32
 
 
 # 定义服务名称和路径
@@ -26,6 +25,8 @@ class MyService(win32serviceutil.ServiceFramework):
         self.svc_display_name = svc_display_name
         self.service_path = service_path
         self.oss_url = oss_url
+        logging.info(self.oss_url)
+        logging.info(self.svc_display_name)
         win32serviceutil.ServiceFramework.__init__(self, args)
         self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
         socket.setdefaulttimeout(60)

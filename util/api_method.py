@@ -8,6 +8,7 @@ import time
 
 import allure
 import jsonpath as jsonpath
+
 from util import log
 import pytest
 import requests
@@ -21,10 +22,11 @@ from util.upload_file import upload_file
 class request_Util:
     def __init__(self):
         yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
-        self.base_url = getData(yamlpath, "apitest", "openurl")
+        self.open_url = getData(yamlpath, "open", "openurl")
+        self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
 
-        appSecret = getData(yamlpath, "apitest", "app_secret")
-        app_token = getData(yamlpath, "apitest", "app_token")
+        appSecret = getData(yamlpath, "open", "app_secret")
+        app_token = getData(yamlpath, "open", "app_token")
 
         times = str(int(time.time() * 1000))
         signature_hash = hashlib.md5((app_token + appSecret + times).encode("utf-8"))
@@ -120,10 +122,11 @@ class request_Util:
             and "expected" in caseinfo_keys
         ):
             case_name = caseinfo["name"]
-            # 一级关键字request下必须有的二级关键字 method url
+            # 一级关键字request下必须有的二级关键字 method url modoule
             if (
                 "method" in dict(caseinfo)["request"].keys()
                 and "url" in dict(caseinfo)["request"].keys()
+                and "modoule" in dict(caseinfo)["request"].keys()
             ):
                 url = caseinfo["request"]["url"]
                 method = caseinfo["request"]["method"]
@@ -134,7 +137,6 @@ class request_Util:
                     files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
                     headers = caseinfo["request"]["headers"]
-                    headers = self.default_header.update(headers)
                     caseinfo["request"].pop("headers")
 
                 caseinfo["request"].pop("url")
@@ -148,6 +150,11 @@ class request_Util:
                     files=None if not files else files,
                     **caseinfo["request"],
                 )
+                import pdb
+
+                pdb.set_trace()
+                print(res.text)
+
                 self.assert_result(caseinfo["expected"], res)
                 try:
                     self.get_depend_data(caseinfo, res)
@@ -156,20 +163,25 @@ class request_Util:
             else:
                 log.logger.error("request下必须有的二级关键字url method")
         else:
-            log.logger.error("必须有的四个一级关键字name base_url request expected")
+            log.logger.error("必须有的四个一级关键字name open_url request expected")
 
         return res
 
-    def send_request(self, case_name, url, method, headers, files, **kwargs):
-        headers = self.default_header
+    def send_request(self, case_name, url, method, modoule, headers, files, **kwargs):
         # 处理url
-        self.url = self.base_url + self.replace_expression(url)
+        if modoule == "open":
+            self.url = self.open_url + self.replace_expression(url)
+        else:
+            self.url = self.cloud_url + self.replace_expression(url)
 
         self.lastmethod = method.lower()
 
         # 处理header
-        if headers and isinstance(headers, dict):
-            headers = self.replace_expression(headers)
+        if modoule == "open":
+            headers = self.default_header
+            if headers and isinstance(headers, dict):
+                headers = self.default_header.update(headers)
+                headers = self.replace_expression(headers)
         file_map = {}
         if files and isinstance(files, dict):
             for filekey in files:

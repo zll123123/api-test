@@ -1,0 +1,30 @@
+-
+  name: 填写系统版本信息和功能信息
+  request:
+    method: post
+    url: https://crm.qiyuesuo.me/api/crm/oss/customer/license/create
+    headers:
+      Content-Type: application/json
+      cookie:
+    json:
+      customerId: '3123189738947215397'
+      version: 4.3.0
+      identifier: $get_extract(identifier)
+      productConfig:
+        contract: true
+        hybrid: true
+        print: true
+        seal: true
+        faceSign: false
+        fee: false
+        ofd: true
+        feeAllocation: true
+      expireTime: '2024-07-30 16:46:19'
+      expire: true
+      icmaxMark: false
+      cmaxMark: false
+      ipcmaxMark: false
+      pcmaxMark: false
+      certAuthority: false
+      network: INNERNET
+      appMaxMark: false
