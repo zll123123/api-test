@@ -24,6 +24,8 @@ class request_Util:
         yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
         self.open_url = getData(yamlpath, "open", "openurl")
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
+        X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
+        X_Auth_Qid = getData(yamlpath, "cloud", "X-Auth-Qid")
 
         appSecret = getData(yamlpath, "open", "app_secret")
         app_token = getData(yamlpath, "open", "app_token")
@@ -34,10 +36,16 @@ class request_Util:
         self.signacture = signacture
         self.app_token = app_token
         self.time = times
-        self.default_header = {
+        self.X_Qys_Oss_Token = X_Qys_Oss_Token
+        self.X_Auth_Qid = X_Auth_Qid
+        self.open_default_header = {
             "x-qys-accesstoken": self.app_token,
             "x-qys-signature": self.signacture,
             "x-qys-timestamp": self.time,
+        }
+        self.cloud_default_header = {
+            "X-Auth-Qid": self.X_Auth_Qid,
+            "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
         }
 
     # 替换数据，包含变量的数据可以是url（str），参数（字典或者字典列表），header（字典）
@@ -131,7 +139,7 @@ class request_Util:
                 url = caseinfo["request"]["url"]
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
-                headers = self.default_header
+
                 files = None
                 if jsonpath.jsonpath(caseinfo, "$..files"):
                     files = caseinfo["request"].pop("files")
@@ -146,7 +154,7 @@ class request_Util:
                     case_name,
                     url=url,
                     method=method,
-                    headers=self.default_header if not headers else headers,
+                    headers=headers,
                     files=None if not files else files,
                     **caseinfo["request"],
                 )
@@ -178,10 +186,12 @@ class request_Util:
 
         # 处理header
         if modoule == "open":
-            headers = self.default_header
+            headers = self.open_default_header
             if headers and isinstance(headers, dict):
-                headers = self.default_header.update(headers)
+                headers = self.open_default_header.update(headers)
                 headers = self.replace_expression(headers)
+        else:
+            headers = self.cloud_default_header
         file_map = {}
         if files and isinstance(files, dict):
             for filekey in files:
