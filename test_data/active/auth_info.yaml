@@ -1,0 +1,31 @@
+-
+  name: 给客户公司进行认证
+  request:
+    method: post
+    url: /crm/oss/customer/create
+    modoule: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      type: COMPANY
+      areaAbbr: CN
+      corpType: 1
+      name: 印章测试03
+      registerNo: '13243454656'
+      legalPerson: 三八
+      licenseFile:
+        name: 1.png
+        type: png
+        key: 1da95e7bade34223bcfc5c1e159e08c0@230803
+      authorizationFile:
+        name: 1.png
+        type: png
+        key: 060c877932094ed388ccd28c8331a1b4@230803
+      contactPerson: zll
+      contact: '10000000001'
+      customerId: ${get_extract}(customerId)
+      attachment: '[]'
+      area: 中国大陆
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }

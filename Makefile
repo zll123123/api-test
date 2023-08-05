@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "公有云添加用户接口测试" && git push
+	git add . && git commit -m "公有云进行企业认证接口通过" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'

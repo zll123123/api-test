@@ -17,17 +17,31 @@ class Test_activate:
     def test_add_customer(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    @allure.title("公有云进行企业认证")
-    @pytest.mark.skip("1a")
-    def test_company_auth(self, new_case_info):
-        pass
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(
+            os.path.join(rootpath, "test_data/active/get_customer_info.yaml")
+        ),
+    )
+    @allure.title("获取添加的客户的customerId")
+    def test_get_coustomerId(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
 
     @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/active/auth_info.yaml")),
+    )
+    @allure.title("公有云进行企业认证")
+    def test_company_auth(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
+
+    pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(
             os.path.join(rootpath, "test_data/active/cooperation_info.yaml")
         ),
     )
+
     @pytest.mark.skip("1")
     @allure.title("公有云填写企业开通的功能")
     def test_set_cooperation(self, new_case_info):

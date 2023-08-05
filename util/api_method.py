@@ -1,13 +1,15 @@
 import hashlib
 import json
+
 import os
 import random
 import uuid
 from datetime import time
 import time
 
+
 import allure
-import jsonpath as jsonpath
+import jsonpath
 
 from util import log
 import pytest
@@ -109,13 +111,11 @@ class request_Util:
         if "extract" in dict(caseinfo).keys():
             # json提取
             extract_data = {}
+            depend_data = res.json()
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
-                depend_key = value.split(".")
-                args_list = ""
-                for item in depend_key:
-                    args_list += f"['{item}']"
-                extract_data[key] = eval(str(res.json()) + args_list)
+
+                extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
             write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
@@ -158,10 +158,6 @@ class request_Util:
                     files=None if not files else files,
                     **caseinfo["request"],
                 )
-                import pdb
-
-                pdb.set_trace()
-                print(res.text)
 
                 self.assert_result(caseinfo["expected"], res)
                 try:

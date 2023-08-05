@@ -2,12 +2,12 @@
   name: 填写系统版本信息和功能信息
   request:
     method: post
-    url: https://crm.qiyuesuo.me/api/crm/oss/customer/license/create
+    url: /crm/oss/customer/license/create
     headers:
       Content-Type: application/json
       cookie:
     json:
-      customerId: '3123189738947215397'
+      customerId: ${get_extract}(customerId)
       version: 4.3.0
       identifier: $get_extract(identifier)
       productConfig:
@@ -28,3 +28,6 @@
       certAuthority: false
       network: INNERNET
       appMaxMark: false
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
