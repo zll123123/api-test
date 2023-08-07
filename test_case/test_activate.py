@@ -31,28 +31,36 @@ class Test_activate:
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/auth_info.yaml")),
     )
+    @pytest.mark.skip("此接口未通，先跳过")
     @allure.title("公有云进行企业认证")
     def test_company_auth(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(
             os.path.join(rootpath, "test_data/active/cooperation_info.yaml")
         ),
     )
-
-    @pytest.mark.skip("1")
     @allure.title("公有云填写企业开通的功能")
     def test_set_cooperation(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @allure.title("获取企业的license列表信息")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(
+            os.path.join(rootpath, "test_data/active/license_list_info.yaml")
+        ),
+    )
+    def test_get_license_list(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
+
+    @allure.title("依据licenseid,得到license信息")
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/license.yaml")),
     )
-    @pytest.mark.skip("1")
-    @allure.title("传入id，获取license信息")
     def test_get_licnese(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 

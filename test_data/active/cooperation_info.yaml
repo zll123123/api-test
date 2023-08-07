@@ -1,15 +1,15 @@
 -
-  name: 填写系统版本信息和功能信息
+  name: 填写系统版本信息和功能信息，获取license
   request:
     method: post
     url: /crm/oss/customer/license/create
+    modoule: cloud
     headers:
       Content-Type: application/json
-      cookie:
     json:
       customerId: ${get_extract}(customerId)
-      version: 4.3.0
-      identifier: $get_extract(identifier)
+      version: 4.3.6
+      identifier: 3b9a032b-ab04-4fc2-9316-018b9b465c07
       productConfig:
         contract: true
         hybrid: true
