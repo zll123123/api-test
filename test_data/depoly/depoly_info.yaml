@@ -1,0 +1,5 @@
+-
+  svc_name: layla_qiyuesuo
+  svc_display_name: qiyuesuo
+  service_path: r'D:\test_atuo_depoly'
+  oss_url: http://127.0.0.1:9181/
