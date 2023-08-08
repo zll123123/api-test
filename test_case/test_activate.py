@@ -1,12 +1,14 @@
-import os
+import os.path
 
-import allure
 import pytest
+import allure
 
 from rootpath import rootpath
-from util.api_method import request_Util
-from util.operate_yaml import read_case_yaml
 
+from util.api_method import request_Util
+
+
+from util.operate_yaml import read_case_yaml
 
 class Test_activate:
     @pytest.mark.parametrize(
@@ -31,7 +33,6 @@ class Test_activate:
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/auth_info.yaml")),
     )
-    @pytest.mark.skip("此接口未通，先跳过")
     @allure.title("公有云进行企业认证")
     def test_company_auth(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
