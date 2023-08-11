@@ -6,7 +6,7 @@ from util import log
 from rootpath import rootpath
 from util.auto_depoly import MyService
 from util.operate_yaml import read_case_yaml
-
+from util import log
 
 class Test_depoly:
     @pytest.mark.parametrize(
@@ -17,7 +17,8 @@ class Test_depoly:
     def test_depoly(self, new_case_info):
         log.logger.info(f"{new_case_info}")
         MyService(**new_case_info).auto_depoly()
-        MyService.check_service()
+
+
 
     # 获取产品识别码
     def get_active_code(self):

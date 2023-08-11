@@ -10,7 +10,7 @@
       type: COMPANY
       areaAbbr: CN
       corpType: 1
-      name: 印章测试03
+      name: ${common_data}(companyName)
       registerNo: '12345123452445'
       legalPerson: 三八
       licenseFile:

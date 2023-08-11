@@ -8,15 +8,15 @@
       Content-Type: application/json
     json:
       platformType: PRIVATE
-      name: 萌点科技-layla.zhang${GenTimestamp}()
-      systemId: 测试12344555
+      name: ${common_data}(companyName)
+      systemId: ${common_data}(identifier)
       contact: PASSPORT
       contactPhone: 1234567890
       am: zll_01
       cs: zll_02
       pm: zll_03
       agentId: 10000
-      identifier: 3b9a032b-ab04-4fc2-9316-018b9b465c07
+      identifier: ${common_data}(identifier)
       apps: ["PRIVATE"]
   expected:
     - eq: { 'code': 0 }

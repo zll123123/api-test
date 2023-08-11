@@ -4,6 +4,6 @@ open:
     openurl: http://192.168.40.210:9182
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
-  X-Qys-Oss-Token: faa24c24-6e1c-4546-b8c7-0c25ec7b09b7
-  X-Auth-Qid: faa24c24-6e1c-4546-b8c7-0c25ec7b09b7
+  X-Qys-Oss-Token: 5ce71546-abc7-4435-8ebb-a62753ce30c1
+  X-Auth-Qid: 5ce71546-abc7-4435-8ebb-a62753ce30c1
 
