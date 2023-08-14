@@ -4,7 +4,7 @@ run:
 
 push:
 	python3 -m black .
-	git add . && git commit -m "除设置平台方信息外其他接口均测试通过" && git push
+	git add . && git commit -m "完善初始化数据库部分" && git push
 
 reqs:
 	pipreqs ./ --force --encoding='utf-8-sig'

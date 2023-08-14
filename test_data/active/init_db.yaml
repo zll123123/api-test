@@ -7,14 +7,14 @@
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:
-      db:
-      dbLabel:
-      host:
-      name:
-      port:
-      password:
-      username:
-      ssl:
+      db: ${common_data}(db)
+      dbLabel: ${db_data}(companyName)
+      host: ${db_data}(url)
+      name: ${db_data}(dbname)
+      port: ${db_data}(port)
+      password: ${db_data}(password)
+      username: ${db_data}(username)
+      ssl: false
 
   expected:
     - eq: { 'code': 0 }

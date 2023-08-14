@@ -8,14 +8,13 @@ import win32api
 
 
 class MyService:
+    def __init__(self, name, svc_name, svc_display_name, service_path, oss_url):
+        self.extract_flag = 0
 
-    def __init__(self,name,svc_name,svc_display_name,service_path,oss_url):
-        self.extract_flag=0
-
-        self.svc_name=svc_name
-        self.svc_display_name=svc_display_name
-        self.service_path=service_path
-        self.oss_url=oss_url
+        self.svc_name = svc_name
+        self.svc_display_name = svc_display_name
+        self.service_path = service_path
+        self.oss_url = oss_url
 
     # 服务的属性配置
 
@@ -24,13 +23,13 @@ class MyService:
             with tarfile.open(file_path, "r:gz") as tar:
                 tar.extractall(target_dir)
             log.logger.info(f"成功解压tar.gz文件: {file_path}")
-            self.extract_flag=1
+            self.extract_flag = 1
         except Exception as e:
             log.logger.error(f"解压tar.gz文件时出现错误: {str(e)}")
 
     def execute_start_bat(self, target_dir):
         start_bat_path = os.path.join(target_dir, "bin", "start.bat")
-        start_bat_dir=os.path.join(target_dir,"bin")
+        start_bat_dir = os.path.join(target_dir, "bin")
         if os.path.exists(start_bat_path):
             os.chdir(start_bat_dir)
             try:
@@ -73,10 +72,3 @@ class MyService:
             self.check_service()
         else:
             log.logger.error(f"安装包数量异常")
-
-
-
-
-
-
-

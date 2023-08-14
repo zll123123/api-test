@@ -16,7 +16,7 @@ class MySQLConnector:
             port=self.port,
             database=self.database,
             user=self.user,
-            password=self.password
+            password=self.password,
         )
 
     def disconnect(self):

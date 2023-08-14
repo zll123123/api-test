@@ -9,11 +9,8 @@ from util.send_mail import SendEmail
 #     # SendEmail().send_main()
 
 
-
-
-
 def run_tests():
-    test_files = ["./test_case/test_depoly.py","./test_case/test_activate.py"]
+    test_files = ["./test_case/test_depoly.py", "./test_case/test_activate.py"]
     story_name = "active"
     command = f"pytest -m \"{story_name}\" {' '.join(test_files)} -s"
 

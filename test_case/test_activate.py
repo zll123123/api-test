@@ -10,9 +10,9 @@ from util.api_method import request_Util
 
 from util.operate_yaml import read_case_yaml
 
+
 @pytest.mark.active
 class Test_activate:
-
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/identifier.yaml")),
@@ -20,7 +20,6 @@ class Test_activate:
     @allure.title("从启动的私有云服务中获取产品识别码")
     def test_get_identifier(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
-
 
     @pytest.mark.parametrize(
         "new_case_info",
@@ -79,8 +78,9 @@ class Test_activate:
     @allure.title("回写license信息到私有云")
     @pytest.mark.parametrize(
         "new_case_info",
-        read_case_yaml(os.path.join(rootpath, "test_data/active/active_license.yaml")),)
-    def test_set_license(self,new_case_info):
+        read_case_yaml(os.path.join(rootpath, "test_data/active/active_license.yaml")),
+    )
+    def test_set_license(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
     # def test_conn_db(self,new_case_info):

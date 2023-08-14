@@ -17,7 +17,7 @@ import requests
 
 from debug_talk import Debug_talk
 from rootpath import rootpath
-from util.operate_yaml import getData, write_yaml,read_commonData,read_dbconfig
+from util.operate_yaml import getData, write_yaml, read_commonData, read_dbconfig
 from util.upload_file import upload_file
 
 
@@ -26,7 +26,7 @@ class request_Util:
         yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
         self.open_url = getData(yamlpath, "open", "openurl")
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
-        self.oss_url=getData(yamlpath,"oss","oss_url")
+        self.oss_url = getData(yamlpath, "oss", "oss_url")
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
         X_Auth_Qid = getData(yamlpath, "cloud", "X-Auth-Qid")
 
@@ -51,10 +51,9 @@ class request_Util:
             "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
         }
 
-
     def replace_expression(self, data):
         comm_path = os.path.join(rootpath, "config/common_data.yaml")
-        db_path=os.path.join(rootpath, "config/dbconfig.yaml")
+        db_path = os.path.join(rootpath, "config/dbconfig.yaml")
         log.logger.info(f"data is {data}")
 
         if isinstance(data, dict):
@@ -67,11 +66,12 @@ class request_Util:
                 func = fun_agrs[fun_agrs.index("{") + 1 : fun_agrs.index("}")]
                 args = data_new[data_new.index("(") + 1 : data_new.index(")")]
                 # *号的作用是解包，相当于去除['1', '500'] []
+                active_db = read_commonData(comm_path, "active_db")
                 args_list = args.split(":")
                 if "common_data" in func:
                     value = read_commonData(comm_path, *args_list)
                 elif "db_data" in func:
-                    value = read_dbconfig(db_path, env_name,*args_list)
+                    value = read_dbconfig(db_path, active_db, *args_list)
                 # split方法分割符不存在时，返回原字符串
                 elif not args:
                     # 此处使用的是反射原理
@@ -163,8 +163,8 @@ class request_Util:
             self.url = self.cloud_url + self.replace_expression(url)
             headers = self.cloud_default_header
         else:
-            self.url=self.oss_url + self.replace_expression(url)
-            headers=headers
+            self.url = self.oss_url + self.replace_expression(url)
+            headers = headers
 
         self.lastmethod = method.lower()
         file_map = {}
