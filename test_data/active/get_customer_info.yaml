@@ -7,7 +7,7 @@
     headers:
       Content-Type: application/json
     json:
-      identifier: ${common_data}(identifier)
+      identifier: ${get_extract}(identifier)
       pageNo: 1
       pageSize: 10
   expected:

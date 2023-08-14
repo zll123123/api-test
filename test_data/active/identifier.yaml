@@ -1,0 +1,13 @@
+-
+  name: 从私有云获取产品识别码
+  request:
+    method: get
+    url: /api/license/get/env
+    modoule: oss
+    headers:
+      Content-Type: application/json
+  extract:
+    identifier: result.identifier
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 请求成功 }

@@ -8,6 +8,7 @@ from util.auto_depoly import MyService
 from util.operate_yaml import read_case_yaml
 from util import log
 
+@pytest.mark.active
 class Test_depoly:
     @pytest.mark.parametrize(
         "new_case_info",
@@ -20,6 +21,3 @@ class Test_depoly:
 
 
 
-    # 获取产品识别码
-    def get_active_code(self):
-        pass

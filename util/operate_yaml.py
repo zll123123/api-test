@@ -4,8 +4,9 @@ from rootpath import rootpath
 import yaml
 import os
 
+
 from util import log, validate
-from util.operate_csv import read_csv
+
 
 
 # 获取当前脚本的所在文件夹的路径
@@ -21,14 +22,20 @@ def getData(yamlpath, node1, node2):
 """
 读取通用测试数据文件
 """
-
-
-def read_commData(yamlpath, node1):
+def read_configData(yamlpath, node1):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         # 用load方法将结果转成字典
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
         log.logger.info(f"result is {result},type is {type(result)}")
         return result.get(node1)
+
+def read_dbconfig(yamlpath,env_name, node1):
+    with open(yamlpath, mode="r", encoding="utf-8") as f:
+        # 用load方法将结果转成字典
+        result = yaml.load(stream=f, Loader=yaml.FullLoader)
+        log.logger.info(f"result is {result},type is {type(result)}")
+        return result.get(env_name)(node1)
+
 
 
 # 已追加的方式写入yaml文件

@@ -2,8 +2,10 @@ open:
     app_token : Kidx7OMpS3
     app_secret: VuxCTwaBccN37Mb4eMvgTHNcae8LaU
     openurl: http://192.168.40.210:9182
+oss:
+    oss_url: http://192.168.40.210:9181
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
-  X-Qys-Oss-Token: 5ce71546-abc7-4435-8ebb-a62753ce30c1
-  X-Auth-Qid: 5ce71546-abc7-4435-8ebb-a62753ce30c1
+  X-Qys-Oss-Token: b1cfe1e4-26db-4ed4-b348-37e6bdf265bb
+  X-Auth-Qid: b1cfe1e4-26db-4ed4-b348-37e6bdf265bb
 

@@ -17,7 +17,7 @@ import requests
 
 from debug_talk import Debug_talk
 from rootpath import rootpath
-from util.operate_yaml import getData, write_yaml, read_commData
+from util.operate_yaml import getData, write_yaml,read_commonData,read_dbconfig
 from util.upload_file import upload_file
 
 
@@ -26,6 +26,7 @@ class request_Util:
         yamlpath = os.path.join(rootpath, "config/apiConfig.yaml")
         self.open_url = getData(yamlpath, "open", "openurl")
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
+        self.oss_url=getData(yamlpath,"oss","oss_url")
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
         X_Auth_Qid = getData(yamlpath, "cloud", "X-Auth-Qid")
 
@@ -50,33 +51,10 @@ class request_Util:
             "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
         }
 
-    # 替换数据，包含变量的数据可以是url（str），参数（字典或者字典列表），header（字典）
-    # def replace_data(self, data):
-    #     if data and isinstance(data, dict):
-    #         convert_data = json.dumps(data)
-    #     else:
-    #         convert_data = data
-    #         # 循环次数为变量中{{的个数
-    #     for i in range(1, convert_data.count('{{') + 1):
-    #         if '{{' in data and '}}' in data:
-    #             start_index = convert_data.index('{{')  # 获取字符串对应的下标
-    #             end_index = convert_data.index('}}')
-    #             conver_key_org = convert_data[start_index:end_index + 2]
-    #             convert_key = conver_key_org[2:-2]
-    #             yamlpath = rootpath + '/config/extract.yaml'
-    #             convert_value = get_extract(yamlpath, convert_key)
-    #             # 字符串是不可变对象，不能用下标赋值的方式去替换
-    #
-    #             data = convert_data.replace(conver_key_org, str(convert_value))
-    #
-    #     if isinstance(data, dict):
-    #         data = json.loads(convert_data)
-    #     else:
-    #         data = data
-    #     return data
-    # ${get_random_int}(1,500)
+
     def replace_expression(self, data):
         comm_path = os.path.join(rootpath, "config/common_data.yaml")
+        db_path=os.path.join(rootpath, "config/dbconfig.yaml")
         log.logger.info(f"data is {data}")
 
         if isinstance(data, dict):
@@ -91,7 +69,9 @@ class request_Util:
                 # *号的作用是解包，相当于去除['1', '500'] []
                 args_list = args.split(":")
                 if "common_data" in func:
-                    value = read_commData(comm_path, *args_list)
+                    value = read_commonData(comm_path, *args_list)
+                elif "db_data" in func:
+                    value = read_dbconfig(db_path, env_name,*args_list)
                 # split方法分割符不存在时，返回原字符串
                 elif not args:
                     # 此处使用的是反射原理
@@ -175,19 +155,18 @@ class request_Util:
         # 处理url
         if modoule == "open":
             self.url = self.open_url + self.replace_expression(url)
-        else:
-            self.url = self.cloud_url + self.replace_expression(url)
-
-        self.lastmethod = method.lower()
-
-        # 处理header
-        if modoule == "open":
             headers = self.open_default_header
             if headers and isinstance(headers, dict):
                 headers = self.open_default_header.update(headers)
                 headers = self.replace_expression(headers)
-        else:
+        elif modoule == "cloud":
+            self.url = self.cloud_url + self.replace_expression(url)
             headers = self.cloud_default_header
+        else:
+            self.url=self.oss_url + self.replace_expression(url)
+            headers=headers
+
+        self.lastmethod = method.lower()
         file_map = {}
         if files and isinstance(files, dict):
             for filekey in files:

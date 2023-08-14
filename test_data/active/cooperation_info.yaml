@@ -9,7 +9,7 @@
     json:
       customerId: ${get_extract}(customerId)
       version: 4.3.6
-      identifier: ${common_data}(identifier)
+      identifier: ${get_extract}(identifier)
       productConfig:
         contract: true
         hybrid: true

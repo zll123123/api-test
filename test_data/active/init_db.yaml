@@ -1,0 +1,21 @@
+-
+  name: 私有云初始化数据库
+  request:
+    method: post
+    url: /api/setup/database
+    modoule: oss
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    data:
+      db:
+      dbLabel:
+      host:
+      name:
+      port:
+      password:
+      username:
+      ssl:
+
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 请求成功 }

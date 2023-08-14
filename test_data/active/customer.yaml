@@ -9,14 +9,14 @@
     json:
       platformType: PRIVATE
       name: ${common_data}(companyName)
-      systemId: ${common_data}(identifier)
+      systemId: ${get_extract}(identifier)
       contact: PASSPORT
       contactPhone: 1234567890
       am: zll_01
       cs: zll_02
       pm: zll_03
       agentId: 10000
-      identifier: ${common_data}(identifier)
+      identifier: ${get_extract}(identifier)
       apps: ["PRIVATE"]
   expected:
     - eq: { 'code': 0 }

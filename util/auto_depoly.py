@@ -19,7 +19,6 @@ class MyService:
 
     # 服务的属性配置
 
-
     def extract_pack(self, file_path, target_dir):
         try:
             with tarfile.open(file_path, "r:gz") as tar:
@@ -31,9 +30,11 @@ class MyService:
 
     def execute_start_bat(self, target_dir):
         start_bat_path = os.path.join(target_dir, "bin", "start.bat")
+        start_bat_dir=os.path.join(target_dir,"bin")
         if os.path.exists(start_bat_path):
+            os.chdir(start_bat_dir)
             try:
-                win32api.ShellExecute(0, "open", start_bat_path, "", target_dir, 1)
+                win32api.ShellExecute(0, "open", start_bat_path, "", start_bat_dir, 1)
                 log.logger.info(f"成功执行start.bat文件: {start_bat_path}")
             except Exception as e:
                 log.logger.error(f"执行start.bat文件时出现错误: {str(e)}")
@@ -67,7 +68,7 @@ class MyService:
             time.sleep(5)
             if self.extract_flag:
                 self.execute_start_bat(self.service_path)
-            time.sleep(200)
+            time.sleep(100)
             # 检查服务状态,成功后再进行后续操作
             self.check_service()
         else:
