@@ -27,18 +27,18 @@ class MyService:
         except Exception as e:
             log.logger.error(f"解压tar.gz文件时出现错误: {str(e)}")
 
-    def execute_start_bat(self, target_dir):
-        start_bat_path = os.path.join(target_dir, "bin", "start.bat")
-        start_bat_dir = os.path.join(target_dir, "bin")
-        if os.path.exists(start_bat_path):
-            os.chdir(start_bat_dir)
+    def execute_bat(self, target_dir,bat_name):
+        bat_path = os.path.join(target_dir, "bin", bat_name)
+        bat_dir = os.path.join(target_dir, "bin")
+        if os.path.exists(bat_path):
+            os.chdir(bat_dir)
             try:
-                win32api.ShellExecute(0, "open", start_bat_path, "", start_bat_dir, 1)
-                log.logger.info(f"成功执行start.bat文件: {start_bat_path}")
+                win32api.ShellExecute(0, "open", bat_path, "", bat_dir, 1)
+                log.logger.info(f"成功执行{bat_name}文件: {bat_path}")
             except Exception as e:
-                log.logger.error(f"执行start.bat文件时出现错误: {str(e)}")
+                log.logger.error(f"执行{bat_name}文件时出现错误: {str(e)}")
         else:
-            log.logger.error(f"未找到start.bat文件: {start_bat_path}")
+            log.logger.error(f"未找到{bat_name}文件: {bat_name}")
 
     def check_service(self):
         try:
@@ -66,9 +66,21 @@ class MyService:
             self.extract_pack(file_path, self.service_path)
             time.sleep(5)
             if self.extract_flag:
-                self.execute_start_bat(self.service_path)
+                self.execute_start_bat(self.service_path,"start.bat")
             time.sleep(100)
             # 检查服务状态,成功后再进行后续操作
             self.check_service()
         else:
             log.logger.error(f"安装包数量异常")
+
+    def restart_service(self):
+        # 进入部署目录
+        os.chdir(self.service_path)
+        self.execute_bat(self.service_path,"stop.bat")
+        self.execute_bat(self.service_path,"start.bat")
+        time.sleep(100)
+        self.check_service()
+        log.logger.info("服务已成功重启")
+
+
+
