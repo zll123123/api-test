@@ -1,5 +1,4 @@
 -
-  name: 本地部署qiyuesuo服务
   svc_name: layla_qiyuesuo
   svc_display_name: qiyuesuo
   service_path: D:\test_atuo_depoly
