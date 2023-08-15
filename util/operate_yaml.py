@@ -23,7 +23,7 @@ def getData(yamlpath, node1, node2):
 """
 
 
-def read_configData(yamlpath, node1):
+def read_commonData(yamlpath, node1):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         # 用load方法将结果转成字典
         result = yaml.load(stream=f, Loader=yaml.FullLoader)

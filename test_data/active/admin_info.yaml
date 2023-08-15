@@ -1,0 +1,17 @@
+-
+  name: 设置私有云初始管理员
+  request:
+    method: post
+    url: /api/setup/account
+    modoule: oss
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    data:
+      name: 管理员
+      account: sysadmin
+      password: qiyuesuo#2020
+      email: 123@qq.com
+      mobile: 10000000001
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 请求成功 }

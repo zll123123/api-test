@@ -83,8 +83,18 @@ class Test_activate:
     def test_set_license(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    # def test_conn_db(self,new_case_info):
-    #     pass
-    #
-    # def test_init_db(self,new_case_info):
-    #     pass
+    @allure.title("初始化数据库信息")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/active/init_db.yaml")),
+    )
+    def test_init_db(self,new_case_info):
+        request_Util().analyse_yaml(new_case_info)
+
+    @allure.title("设置私有云管理员信息")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
+    )
+    def test_init_db(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
