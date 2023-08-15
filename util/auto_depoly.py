@@ -27,11 +27,11 @@ class MyService:
         except Exception as e:
             log.logger.error(f"解压tar.gz文件时出现错误: {str(e)}")
 
-    def execute_bat(self, target_dir,bat):
+    def execute_start_bat(self, target_dir):
         start_bat_path = os.path.join(target_dir, "bin", "start.bat")
-        bat_dir = os.path.join(target_dir, "bin")
+        start_bat_dir = os.path.join(target_dir, "bin")
         if os.path.exists(start_bat_path):
-            os.chdir(bat_dir)
+            os.chdir(start_bat_dir)
             try:
                 win32api.ShellExecute(0, "open", start_bat_path, "", start_bat_dir, 1)
                 log.logger.info(f"成功执行start.bat文件: {start_bat_path}")
@@ -72,12 +72,3 @@ class MyService:
             self.check_service()
         else:
             log.logger.error(f"安装包数量异常")
-
-
-    def restart_service(self):
-        # 进入部署目录
-        os.chdir(self.service_path)
-        # 获取目录中以tar.gz结尾的文件
-        stop_bat os.path.join(target_dir, "bin", "start.bat")
-        bat_dir = os.path.join(target_dir, "bin")
-

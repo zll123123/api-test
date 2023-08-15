@@ -36,7 +36,7 @@ def read_dbconfig(yamlpath, active_db, node1):
         # 用load方法将结果转成字典
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
         log.logger.info(f"result is {result},type is {type(result)}")
-        return result.get(active_db,{}).get(node1)
+        return result.get(active_db)(node1)
 
 
 # 已追加的方式写入yaml文件

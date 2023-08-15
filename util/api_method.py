@@ -55,6 +55,7 @@ class request_Util:
         comm_path = os.path.join(rootpath, "config/common_data.yaml")
         db_path = os.path.join(rootpath, "config/dbconfig.yaml")
         log.logger.info(f"data is {data}")
+
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
         else:

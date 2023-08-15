@@ -5,8 +5,8 @@
     url: /api/setup/license
     modoule: oss
     headers:
-      Content-Type: application/x-www-form-urlencoded
-    data:
+      Content-Type: application/json
+    json:
       license: ${get_extract}(licenseCode)
   expected:
     - eq: { 'code': 0 }

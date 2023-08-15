@@ -6,6 +6,6 @@ oss:
     oss_url: http://192.168.40.210:9181
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
-  X-Qys-Oss-Token: 65b97ee1-38d6-4b6c-b790-4f415c68dba7
-  X-Auth-Qid: 65b97ee1-38d6-4b6c-b790-4f415c68dba7
+  X-Qys-Oss-Token: 5d53c73d-fb1d-4735-81c7-118a8c36b963
+  X-Auth-Qid: 5d53c73d-fb1d-4735-81c7-118a8c36b963
 
