@@ -98,3 +98,11 @@ class Test_activate:
     )
     def test_init_db(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
+
+    @allure.title("重启私有云服务")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
+    )
+    def test_restart_service(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
