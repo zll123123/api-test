@@ -28,8 +28,6 @@ class request_Util:
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
         self.oss_url = getData(yamlpath, "oss", "oss_url")
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
-        X_Auth_Qid = getData(yamlpath, "cloud", "X-Auth-Qid")
-
         appSecret = getData(yamlpath, "open", "app_secret")
         app_token = getData(yamlpath, "open", "app_token")
 
@@ -40,7 +38,6 @@ class request_Util:
         self.app_token = app_token
         self.time = times
         self.X_Qys_Oss_Token = X_Qys_Oss_Token
-        self.X_Auth_Qid = X_Auth_Qid
         self.open_default_header = {
             "x-qys-accesstoken": self.app_token,
             "x-qys-signature": self.signacture,
@@ -48,7 +45,7 @@ class request_Util:
         }
         self.cloud_default_header = {
             "X-Auth-Qid": self.X_Auth_Qid,
-            "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
+            "X-Qys-Oss-Token": self.X_Auth_Qid,
         }
 
     def replace_expression(self, data):

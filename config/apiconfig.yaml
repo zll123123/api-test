@@ -7,4 +7,3 @@ oss:
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
   X-Qys-Oss-Token: c0ccdb3d-3dbd-4ba3-a858-802c9ad1f025
-  X-Auth-Qid: c0ccdb3d-3dbd-4ba3-a858-802c9ad1f025
