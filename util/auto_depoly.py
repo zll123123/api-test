@@ -1,3 +1,4 @@
+import subprocess
 import time
 
 import requests
@@ -66,17 +67,21 @@ class MyService:
             self.extract_pack(file_path, self.service_path)
             time.sleep(5)
             if self.extract_flag:
-                self.execute_start_bat(self.service_path,"start.bat")
+                self.execute_bat(self.service_path,"start.bat")
             time.sleep(100)
             # 检查服务状态,成功后再进行后续操作
             self.check_service()
         else:
             log.logger.error(f"安装包数量异常")
 
+
+    def stop_service(self,service_name):
+        subprocess.run(["sc", "stop", service_name])
+
     def restart_service(self):
         # 进入部署目录
         os.chdir(self.service_path)
-        self.execute_bat(self.service_path,"stop.bat")
+        self.stop_service(self.svc_name)
         self.execute_bat(self.service_path,"start.bat")
         time.sleep(100)
         self.check_service()

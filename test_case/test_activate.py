@@ -9,10 +9,12 @@ from util.api_method import request_Util
 
 
 from util.operate_yaml import read_case_yaml
+from util.auto_depoly import MyService
 
 
 @pytest.mark.active
 class Test_activate:
+    @pytest.mark.run(order=2)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/identifier.yaml")),
@@ -21,6 +23,7 @@ class Test_activate:
     def test_get_identifier(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=3)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/customer.yaml")),
@@ -29,6 +32,7 @@ class Test_activate:
     def test_add_customer(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=4)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(
@@ -39,6 +43,7 @@ class Test_activate:
     def test_get_coustomerId(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=5)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/auth_info.yaml")),
@@ -47,6 +52,7 @@ class Test_activate:
     def test_company_auth(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=6)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(
@@ -57,6 +63,7 @@ class Test_activate:
     def test_set_cooperation(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=7)
     @allure.title("获取企业的license列表信息")
     @pytest.mark.parametrize(
         "new_case_info",
@@ -67,6 +74,7 @@ class Test_activate:
     def test_get_license_list(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=8)
     @allure.title("依据licenseid,得到license信息")
     @pytest.mark.parametrize(
         "new_case_info",
@@ -75,6 +83,7 @@ class Test_activate:
     def test_get_licnese(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=9)
     @allure.title("回写license信息到私有云")
     @pytest.mark.parametrize(
         "new_case_info",
@@ -83,6 +92,7 @@ class Test_activate:
     def test_set_license(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=10)
     @allure.title("初始化数据库信息")
     @pytest.mark.parametrize(
         "new_case_info",
@@ -91,18 +101,20 @@ class Test_activate:
     def test_init_db(self,new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    @allure.title("设置私有云管理员信息")
-    @pytest.mark.parametrize(
-        "new_case_info",
-        read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
-    )
-    def test_init_db(self, new_case_info):
-        request_Util().analyse_yaml(new_case_info)
-
-    @allure.title("重启私有云服务")
-    @pytest.mark.parametrize(
-        "new_case_info",
-        read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
-    )
-    def test_restart_service(self, new_case_info):
-        request_Util().analyse_yaml(new_case_info)
+    # @pytest.mark.run(order=11)
+    # @allure.title("设置私有云管理员信息")
+    # @pytest.mark.parametrize(
+    #     "new_case_info",
+    #     read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
+    # )
+    # def test_init_db(self, new_case_info):
+    #     request_Util().analyse_yaml(new_case_info)
+    #
+    # @pytest.mark.run(order=12)
+    # @allure.title("重启私有云服务")
+    # @pytest.mark.parametrize(
+    #     "new_case_info",
+    #     read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
+    # )
+    # def test_restart_service(self, new_case_info):
+    #     MyService(**new_case_info).restart_service()

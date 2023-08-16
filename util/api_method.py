@@ -71,7 +71,7 @@ class request_Util:
                 if "common_data" in func:
                     value = read_commonData(comm_path, *args_list)
                 elif "db_data" in func:
-                    value = read_dbconfig(db_path, active_db, *args_list)
+                    value = read_dbconfig(db_path, active_db,*args_list)
                 # split方法分割符不存在时，返回原字符串
                 elif not args:
                     # 此处使用的是反射原理
@@ -201,6 +201,7 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
+        import pdb;pdb.set_trace()
         log.logger.info(f"预期{expect},实际结果为{res.json()}")
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res.json()}")

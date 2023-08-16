@@ -11,6 +11,7 @@ from util import log
 
 @pytest.mark.active
 class Test_depoly:
+    @pytest.mark.run(order=1)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
