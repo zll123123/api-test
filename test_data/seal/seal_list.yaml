@@ -3,6 +3,7 @@
   request:
     method: GET
     url: /seal/list
+    modoule: open
     params:
       id: $csv{id}
       name: $csv{name}

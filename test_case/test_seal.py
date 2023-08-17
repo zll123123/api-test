@@ -11,6 +11,7 @@ from util.operate_csv import parse_csv
 from util.operate_yaml import read_case_yaml
 
 
+@pytest.mark.seal
 class Test_seal:
     @pytest.mark.parametrize(
         "new_case_info",

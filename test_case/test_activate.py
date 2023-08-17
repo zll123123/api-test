@@ -101,20 +101,20 @@ class Test_activate:
     def test_init_db(self,new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    # @pytest.mark.run(order=11)
-    # @allure.title("设置私有云管理员信息")
-    # @pytest.mark.parametrize(
-    #     "new_case_info",
-    #     read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
-    # )
-    # def test_init_db(self, new_case_info):
-    #     request_Util().analyse_yaml(new_case_info)
-    #
-    # @pytest.mark.run(order=12)
-    # @allure.title("重启私有云服务")
-    # @pytest.mark.parametrize(
-    #     "new_case_info",
-    #     read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
-    # )
-    # def test_restart_service(self, new_case_info):
-    #     MyService(**new_case_info).restart_service()
+    @pytest.mark.run(order=11)
+    @allure.title("设置私有云管理员信息")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
+    )
+    def test_init_db(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
+
+    @pytest.mark.run(order=12)
+    @allure.title("重启私有云服务")
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
+    )
+    def test_restart_service(self, new_case_info):
+        MyService(**new_case_info).restart_service()

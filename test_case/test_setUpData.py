@@ -15,7 +15,7 @@ class Test_setUp:
     创建内部法人单位
     """
 
-    @allure.story("使用初始的测试数据信息" "创建内部法人单位")
+    @allure.title("使用初始的测试数据信息" "创建内部法人单位")
     @pytest.mark.run(order=1)
     @pytest.mark.parametrize(
         "new_case_info",
@@ -28,11 +28,10 @@ class Test_setUp:
     个人实名认证
     """
 
-    @allure.story("完成测试数据中的个人信息认证")
+    @allure.title("完成测试数据中的个人信息认证")
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/user/auth_user.yaml")),
     )
-    @pytest.mark.skip(reason="数据已存在，暂时先跳过")
     def test_authUser(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)

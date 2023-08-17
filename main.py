@@ -4,8 +4,8 @@ import subprocess
 from util.send_mail import SendEmail
 
 if __name__ == "__main__":
-    # pytest.main(["./test_case/test_depoly.py", "-s","-q"])
-    pytest.main(["./test_case/test_activate.py::Test_activate::test_init_db", "-s"])
+    pytest.main(["./test_case/test_setUpData.py", "-s"])
+    # pytest.main(["./test_case/test_activate.py::Test_activate::test_init_db", "-s"])
     SendEmail().send_main()
 
 

@@ -27,6 +27,7 @@ class request_Util:
         self.open_url = getData(yamlpath, "open", "openurl")
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
         self.oss_url = getData(yamlpath, "oss", "oss_url")
+
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
         appSecret = getData(yamlpath, "open", "app_secret")
         app_token = getData(yamlpath, "open", "app_token")
@@ -34,6 +35,7 @@ class request_Util:
         times = str(int(time.time() * 1000))
         signature_hash = hashlib.md5((app_token + appSecret + times).encode("utf-8"))
         signacture = signature_hash.hexdigest()
+
         self.signacture = signacture
         self.app_token = app_token
         self.time = times
@@ -44,8 +46,8 @@ class request_Util:
             "x-qys-timestamp": self.time,
         }
         self.cloud_default_header = {
-            "X-Auth-Qid": self.X_Auth_Qid,
-            "X-Qys-Oss-Token": self.X_Auth_Qid,
+            "X-Auth-Qid": self.X_Qys_Oss_Token,
+            "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
         }
 
     def replace_expression(self, data):
@@ -118,6 +120,7 @@ class request_Util:
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
 
                 files = None
+                headers = None
                 if jsonpath.jsonpath(caseinfo, "$..files"):
                     files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
@@ -131,7 +134,7 @@ class request_Util:
                     case_name,
                     url=url,
                     method=method,
-                    headers=headers,
+                    headers=None if not headers else headers,
                     files=None if not files else files,
                     **caseinfo["request"],
                 )
@@ -139,26 +142,33 @@ class request_Util:
                 self.assert_result(caseinfo["expected"], res)
                 try:
                     self.get_depend_data(caseinfo, res)
-                except Exception:
-                    log.logger.error("提取返回依赖结果失败")
+                except Exception as e :
+                    log.logger.error(f"提取返回依赖结果失败{e}")
             else:
                 log.logger.error("request下必须有的二级关键字url method")
         else:
-            log.logger.error("必须有的四个一级关键字name open_url request expected")
+            log.logger.error("必须有的四个一级关键字name url request expected")
 
         return res
 
     def send_request(self, case_name, url, method, modoule, headers, files, **kwargs):
+
         # 处理url
         if modoule == "open":
             self.url = self.open_url + self.replace_expression(url)
-            headers = self.open_default_header
+
             if headers and isinstance(headers, dict):
-                headers = self.open_default_header.update(headers)
-                headers = self.replace_expression(headers)
+                headers={**self.open_default_header,**headers}
+                # headers = self.replace_expression(headers)
+            else:
+                headers = self.open_default_header
         elif modoule == "cloud":
             self.url = self.cloud_url + self.replace_expression(url)
-            headers = self.cloud_default_header
+
+            if headers and isinstance(headers, dict):
+                headers = {**self.cloud_default_header, **headers}
+            else:
+                headers = self.cloud_default_header
         else:
             self.url = self.oss_url + self.replace_expression(url)
             headers = headers
@@ -198,7 +208,6 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
-        import pdb;pdb.set_trace()
         log.logger.info(f"预期{expect},实际结果为{res.json()}")
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res.json()}")

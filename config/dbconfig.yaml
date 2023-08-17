@@ -1,7 +1,7 @@
 MYSQL:
   url: 192.168.41.53
   port: 3306
-  dbname: testzll
+  dbname: test436bd
   username: qiyuesuo
   password: orange
 
