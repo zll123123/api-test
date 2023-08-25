@@ -9,6 +9,7 @@ from util.operate_yaml import read_case_yaml
 
 
 @allure.feature("初始化数据")
+@pytest.mark.setup
 class Test_setUp:
 
     """
