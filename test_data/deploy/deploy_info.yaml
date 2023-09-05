@@ -2,5 +2,5 @@
   name: 变更私有云服务状态
   svc_name: layla_qiyuesuo
   svc_display_name: qiyuesuo
-  service_path: D:\test_atuo_deploy
+  service_path: D:\test_auto_deploy
   oss_url: http://127.0.0.1:9181/

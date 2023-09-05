@@ -5,6 +5,7 @@
     url: /v2/seal/status
     headers:
       Content-Type: application/json
+    modoule: open
     json:
       category: $csv{category}
       method: $csv{method}

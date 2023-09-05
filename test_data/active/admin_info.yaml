@@ -14,4 +14,4 @@
       mobile: 10000000001
   expected:
     - eq: { 'code': 0 }
-    - eq: { 'message': 请求成功 }
+    - eq: { 'message': 激活成功！请重启webapp服务与open服务！}

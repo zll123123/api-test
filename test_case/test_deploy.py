@@ -10,7 +10,7 @@ from util import log
 
 
 @pytest.mark.active
-class Test_deploy:
+class Test_depoly:
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/deploy/deploy_info.yaml")),

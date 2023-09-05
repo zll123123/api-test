@@ -9,10 +9,12 @@ from util.api_method import request_Util
 
 
 from util.operate_yaml import read_case_yaml
+from util.auto_deploy import MyService
 
 
 @pytest.mark.active
 class Test_activate:
+    @pytest.mark.run(order=2)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/identifier.yaml")),
@@ -21,6 +23,7 @@ class Test_activate:
     def test_get_identifier(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
+    @pytest.mark.run(order=3)
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/customer.yaml")),
@@ -96,13 +99,13 @@ class Test_activate:
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/active/admin_info.yaml")),
     )
-    def test_set_admin_info(self, new_case_info):
+    def test_init_db(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
     @allure.title("重启私有云服务")
     @pytest.mark.parametrize(
         "new_case_info",
-        read_case_yaml(os.path.join(rootpath, "test_data/deploy/deploy_info.yaml")),
+        read_case_yaml(os.path.join(rootpath, "test_data/depoly/depoly_info.yaml")),
     )
     def test_restart_service(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)

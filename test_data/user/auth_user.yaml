@@ -3,6 +3,7 @@
   request:
     method: post
     url: /userauth/authurl2
+    modoule: open
     headers:
       Content-Type: application/json
     json:

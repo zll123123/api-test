@@ -1,2 +1,2 @@
 case_name;companyName;image;seal_name;spec
-上传图片创建印章;${get_extract}(companyName);${image_to_base64}(/images/印章01.png);印章测试_自动化测试${get_random_int}(1:5000);CIRCULAR_50
+上传图片创建印章;${common_data}(companyName);${image_to_base64}(/images/印章01.png);印章测试_自动化测试${get_random_int}(1:5000);CIRCULAR_50
