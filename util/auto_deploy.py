@@ -50,7 +50,7 @@ class MyService:
         except requests.RequestException as e:
             log.logger.error(f"无法访问页面 '{self.oss_url}': {str(e)}")
 
-    def auto_depoly(self):
+    def auto_deploy(self):
         # 进入部署目录
         os.chdir(self.service_path)
         # 获取目录中以tar.gz结尾的文件
