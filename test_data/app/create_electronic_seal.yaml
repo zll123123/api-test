@@ -1,10 +1,11 @@
 -
-  name:  $csv{case_name}
+  name:  sign平台创建电子印章
   request:
     method: POST
-    url: /seal/create/company
+    url: /api/seal/create
     headers:
       Content-Type: application/json
+      X-Qid: ${get_extract}(app_token)
     modoule: app
     json:
       operateType: CREATE
@@ -12,7 +13,7 @@
       type: COMPANY
       sealCertCreateType: APPLY
       ukeyChopAdmitType: CUSTOM
-      name:
+      name:  前台创建电子章
       owner: '3126711382949036231'
       ownerName: 萌点科技
       departmentId: '3126711380956741789'

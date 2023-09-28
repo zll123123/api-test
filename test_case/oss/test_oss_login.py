@@ -16,7 +16,7 @@ class TestOssLogin:
         "new_case_info",
         parse_csv(
             read_case_yaml(
-                os.path.join(rootpath, "/test_data/oss/oss_login_info.yaml")
+                os.path.join(rootpath, "test_data/oss/oss_login_info.yaml")
             )
         ),
     )
