@@ -1,0 +1,20 @@
+-
+  name:  $csv{case_name}
+  request:
+    method: POST
+    url: /api/login
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    modoule: oss
+    data:
+      username: sysadmin
+      password: {cipher}Wf77690VdxrpVnXfV0lslGQuP8ZwSjxqfzFFQJdCc6KhXfSyfPskGoZMIQML1cGBpvvpUrMAfWNWJDjHFW7hoGeOmj6ENjyc2UYsfoFmUtDw++bPeaOInOw2A74GoJuJkAym5fxWMfI31bxyqlvPuQaqafIMm5IV+uGVV74Bvp4=
+      captcha:
+      oss: oss
+      loginCheck: {loginCheck}FjUrbIGmdb9ZHiNILNmdGWG/DJfPCyljEZLDLKnn9bYB+yMGhCD4L1E/z0RqunjM3bzcdU51efUuX3LLcd/Yp9TteNV2s8DCNIb2eO6fe5BdDRcZbL2UC/o0kHAgaujPCEAkl63Ix3cTlWdo9XkFFa8Ojh02wx8Chk5OWlIlMn8=
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':登录成功 }
+  extract:
+    app_token : token
+

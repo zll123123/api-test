@@ -15,4 +15,3 @@ if __name__ == "__main__":
     # 使用 jsonpath 来提取属性值
     result = jsonpath.jsonpath(data, "$." + agrs)
     print(result[0])
-

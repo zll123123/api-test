@@ -1,0 +1,14 @@
+-
+  name:  获取顶级组织对应的orgId 和departmentId
+  request:
+    method: GET
+    url: api/organization/root
+    headers:
+    modoule: oss
+    params:
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':请求成功 }
+  extract:
+    orgId : result.orgId
+    parent_id: result.id
