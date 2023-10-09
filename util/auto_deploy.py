@@ -5,7 +5,6 @@ import requests
 import os
 import tarfile
 from util import log
-import win32api
 
 
 class MyService:

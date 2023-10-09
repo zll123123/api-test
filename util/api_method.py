@@ -27,8 +27,10 @@ class request_Util:
         self.open_url = getData(yamlpath, "open", "openurl")
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
         self.oss_url = getData(yamlpath, "oss", "oss_url")
-
+        self.app_url=getData(yamlpath, "app", "app_url")
+        #公有云请求使用
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
+        #私有云open平台使用
         appSecret = getData(yamlpath, "open", "app_secret")
         app_token = getData(yamlpath, "open", "app_token")
 
@@ -169,9 +171,11 @@ class request_Util:
                 headers = {**self.cloud_default_header, **headers}
             else:
                 headers = self.cloud_default_header
-        else:
+        elif modoule == "oss":
             self.url = self.oss_url + self.replace_expression(url)
             headers = headers
+        else:
+            self.url=self.app_url+self.replace_expression(url)
 
         self.lastmethod = method.lower()
         file_map = {}
@@ -208,6 +212,7 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
+        import pdb;pdb.set_trace()
         log.logger.info(f"预期{expect},实际结果为{res.json()}")
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res.json()}")
