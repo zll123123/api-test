@@ -1,0 +1,20 @@
+-
+  name: $csv{case_name}
+  request:
+    method: GET
+    url: /seal/list
+    modoule: open
+    params:
+      id: $csv{id}
+      name: $csv{name}
+      registerNo: $csv{registerNo}
+      openCompanyId: $csv{openCompanyId}
+      sealAttribute: $csv{sealAttribute}
+      sealCategoryName: $csv{sealCategoryName}
+  parameters:
+    case_name-id-name-registerNo-openCompanyId-sealAttribute-sealCategoryName: data/open/seal/seal_list.csv
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+    - contains: id
+

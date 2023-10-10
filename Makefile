@@ -1,6 +1,6 @@
 run:
 	python3 -m black .
-	python3 unitest/main.py
+	python3 apitest/main.py
 
 push:
 	python3 -m black .

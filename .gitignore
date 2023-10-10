@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-unitest/build/
+apitest/build/
 develop-eggs/
 dist/
 downloads/

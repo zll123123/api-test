@@ -1,0 +1,21 @@
+-
+  name: $csv{case_name}
+  request:
+    method: POST
+    url: /v2/seal/status
+    headers:
+      Content-Type: application/json
+    modoule: open
+    json:
+      category: $csv{category}
+      method: $csv{method}
+      sealRequest: $csv{sealRequest}
+      company: $csv{company}
+      enable: $csv{enable}
+      operatorInfo: $csv{operatorInfo}
+  parameters:
+    case_name-category-method-sealRequest-company-enable-operatorInfo: data/open/seal/seal_status.csv
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+
