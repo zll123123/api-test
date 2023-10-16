@@ -19,6 +19,7 @@ from apitest.util.operate_yaml import (
     write_yaml,
     read_commonData,
     read_dbconfig,
+    get_extract,
 )
 from apitest.util.upload_file import upload_file
 
@@ -58,7 +59,6 @@ class request_Util:
         comm_path = os.path.join(rootpath, "config/common_data.yaml")
         db_path = os.path.join(rootpath, "config/dbconfig.yaml")
         log.logger.info(f"data is {data}")
-
         if isinstance(data, dict):
             data_new = json.dumps(data, ensure_ascii=False)
         else:
@@ -158,26 +158,29 @@ class request_Util:
     def send_request(self, case_name, url, method, modoule, headers, files, **kwargs):
         # 处理url
         if modoule == "open":
-            self.url = self.open_url + self.replace_expression(url)
-
+            self.url = self.open_url + url
             if headers and isinstance(headers, dict):
                 headers = {**self.open_default_header, **headers}
                 # headers = self.replace_expression(headers)
             else:
                 headers = self.open_default_header
         elif modoule == "cloud":
-            self.url = self.cloud_url + self.replace_expression(url)
-
+            self.url = self.cloud_url + url
             if headers and isinstance(headers, dict):
                 headers = {**self.cloud_default_header, **headers}
             else:
                 headers = self.cloud_default_header
         elif modoule == "oss":
-            self.url = self.oss_url + self.replace_expression(url)
+            self.url = self.oss_url + url
+            if "login" not in url:
+                oss_token = {"token": get_extract("oss_token")}
+                headers = {**oss_token, **headers}
             headers = headers
         else:
-            self.url = self.sign_url + self.replace_expression(url)
-
+            self.url = self.sign_url + url
+            if "login" not in url:
+                sign_token = {"token": get_extract("sign_token")}
+                headers = {**sign_token, **headers}
         self.lastmethod = method.lower()
         file_map = {}
         if files and isinstance(files, dict):
@@ -194,7 +197,7 @@ class request_Util:
                     for k in list(value.keys()):
                         if value[k] == "":
                             value.pop(k)
-                kwargs[key] = self.replace_expression(value)
+                    kwargs[key] = self.replace_expression(value)
 
         sesseion = requests.session()
         log.logger.info(

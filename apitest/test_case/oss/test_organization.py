@@ -17,6 +17,7 @@ class TestOrganization:
             os.path.join(rootpath, "test_data/oss/get_root_organization.yaml")
         ),
     )
+    @pytest.mark.run(order=2)
     @pytest.mark.regression
     @allure.story("获取顶级组织信息")
     def test_root_organization(self, new_case_info):

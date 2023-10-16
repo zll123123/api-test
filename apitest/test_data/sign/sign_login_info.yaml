@@ -17,5 +17,5 @@
     - eq: {'code':0}
     - eq: {'message':登录成功 }
   extract:
-    app_token : token
+    sign_token : token
 

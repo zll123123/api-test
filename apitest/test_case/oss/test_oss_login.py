@@ -16,6 +16,7 @@ class TestOssLogin:
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/oss/oss_login_info.yaml")),
     )
+    @pytest.mark.run(order=1)
     @pytest.mark.regression
     @allure.story("oss登录")
     def test_oss_login(self, new_case_info):

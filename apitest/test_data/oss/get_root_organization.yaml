@@ -2,8 +2,9 @@
   name:  获取顶级组织对应的orgId 和departmentId
   request:
     method: GET
-    url: api/organization/root
+    url: /api/organization/root
     headers:
+       X-Requested-With: XMLHttpRequest
     modoule: oss
     params:
   expected:
