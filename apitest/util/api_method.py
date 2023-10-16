@@ -216,9 +216,6 @@ class request_Util:
         return res
 
     def assert_result(self, expect, res):
-        import pdb
-
-        pdb.set_trace()
         log.logger.info(f"预期{expect},实际结果为{res.json()}")
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res.json()}")
