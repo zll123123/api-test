@@ -5,10 +5,11 @@
     url: /api/organization/add/section
     headers:
       Content-Type: application/json
+      X-Requested-With: XMLHttpRequest
     modoule: sign
     json:
       department:
-        companyName: 印章测试公司
+        companyName: 印章测试公司${GenTimestamp}()
         orgId: ${get_extract}(orgId)
         orgCode: ''
         parentId: ${get_extract}(parent_id)
@@ -19,7 +20,7 @@
         departmentPath: ''
         createCompany: true
       companyInfoVo:
-        legalPerson: 三八
+        legalPerson: ${common_data}(userName)
       createCompany: true
   expected:
     - eq: {'code':0}

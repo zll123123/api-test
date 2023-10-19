@@ -10,6 +10,7 @@ from apitest.util.operate_yaml import read_case_yaml
 
 @pytest.mark.seal
 class TestSignLogin:
+    @pytest.mark.regression
     @pytest.mark.parametrize(
         "new_case_info",
         read_case_yaml(os.path.join(rootpath, "test_data/sign/sign_login_info.yaml")),

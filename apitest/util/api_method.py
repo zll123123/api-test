@@ -173,13 +173,13 @@ class request_Util:
         elif modoule == "oss":
             self.url = self.oss_url + url
             if "login" not in url:
-                oss_token = {"token": get_extract("oss_token")}
+                oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
                 headers = {**oss_token, **headers}
             headers = headers
         else:
             self.url = self.sign_url + url
             if "login" not in url:
-                sign_token = {"token": get_extract("sign_token")}
+                sign_token = {"Cookie": "QID=" + get_extract("sign_token")}
                 headers = {**sign_token, **headers}
         self.lastmethod = method.lower()
         file_map = {}
@@ -213,6 +213,10 @@ class request_Util:
             files=file_map,
             **kwargs,
         )
+        import pdb
+
+        pdb.set_trace()
+
         return res
 
     def assert_result(self, expect, res):
