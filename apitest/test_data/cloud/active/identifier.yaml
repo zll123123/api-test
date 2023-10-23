@@ -3,7 +3,7 @@
   request:
     method: get
     url: /api/license/get/env
-    modoule: oss
+    module: oss
     headers:
       Content-Type: application/json
   extract:

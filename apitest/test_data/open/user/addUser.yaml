@@ -3,7 +3,7 @@
   request:
     method: post
     url: /employee/create
-    modoule: open
+    module: open
     json:
       name: ${common_data}(userName)
       contact: ${common_data}(userMobile)

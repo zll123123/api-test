@@ -3,7 +3,7 @@
   request:
     method: post
     url: /api/setup/account
-    modoule: oss
+    module: oss
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:

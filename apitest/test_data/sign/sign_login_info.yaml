@@ -7,7 +7,7 @@
       Content-Type: application/x-www-form-urlencoded
       Checkcaptcha: 'true'
       X-Requested-With: XMLHttpRequest
-    modoule: sign
+    module: sign
     data:
       username: ${common_data}(userMobile)
       password: '{cipher}DbIe9yukpkFin5pqwCEFV39Y0YYe5vFSRsDNX1JG+2tfxEc0X/sg2UDgSgC80jv/TqIeNi+KwVOYqd9xxy34wCAltnlFJtTJO0fBhMiIT0nlPE3gqM+w7fDSrVJ1/W1P7UJTQegoAGrENZaPvXxlT+CEYweMc/YEmTdoxIWXyDw='

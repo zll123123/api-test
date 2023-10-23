@@ -1,0 +1,14 @@
+-
+  name:  添加员工
+  request:
+    method: POST
+    url: /api/employee/add
+    headers:
+       X-Requested-With: XMLHttpRequest
+    module: oss
+    json:
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':请求成功 }
+  extract:
+    userId : result.userId

@@ -5,7 +5,7 @@
     url: /seal/create/company
     headers:
       Content-Type: application/x-www-form-urlencoded
-    modoule: open
+    module: open
     data:
       companyName: $csv{companyName}
       image: $csv{image}

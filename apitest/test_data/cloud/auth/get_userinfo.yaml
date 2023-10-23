@@ -1,21 +1,18 @@
 -
-  name: 获取个人认证链接
+  name: 获取个人用户相关信息
   request:
     method: get
-    url: /api/user/auth/url
+    url: /api/user
     headers:
       Content-Type: application/x-www-form-urlencoded
       X-Requested-With: XMLHttpRequest
     module: sign
     params:
-      authMode: DEFAULT
-      userId: ${get_extract}(userId)
-      again: false
-      channel: PRIVATE_PC
-      pageUrl: http://www.baidu.com
   expected:
     - eq: {'code':0}
     - eq: {'message':SUCCESS }
   extract:
-    user_authurl : result
+    empId : result.employee.id
+    userId: result.employee.userId
+
 

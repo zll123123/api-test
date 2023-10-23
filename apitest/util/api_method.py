@@ -5,6 +5,7 @@ import os
 from datetime import time
 import time
 
+
 import allure
 import jsonpath
 
@@ -30,7 +31,6 @@ class request_Util:
         self.cloud_url = getData(yamlpath, "cloud", "cloud_url")
         self.oss_url = getData(yamlpath, "oss", "oss_url")
         self.sign_url = getData(yamlpath, "sign", "sign_url")
-        self.auth_url=getData(yamlpath,"auth","auth_url")
         # 公有云请求使用
         X_Qys_Oss_Token = getData(yamlpath, "cloud", "X-Qys-Oss-Token")
         # 私有云open平台使用
@@ -65,9 +65,9 @@ class request_Util:
             data_new = data
         for i in range(data_new.count("${")):
             if "${" in data_new and "}" in data_new:
-                fun_agrs = data_new[data_new.index("$"): data_new.index(")") + 1]
-                func = fun_agrs[fun_agrs.index("{") + 1: fun_agrs.index("}")]
-                args = data_new[data_new.index("(") + 1: data_new.index(")")]
+                fun_agrs = data_new[data_new.index("$") : data_new.index(")") + 1]
+                func = fun_agrs[fun_agrs.index("{") + 1 : fun_agrs.index("}")]
+                args = data_new[data_new.index("(") + 1 : data_new.index(")")]
                 # *号的作用是解包，相当于去除['1', '500'] []
                 active_db = read_commonData(comm_path, "active_db")
                 args_list = args.split(":")
@@ -108,16 +108,16 @@ class request_Util:
         caseinfo_keys = dict(caseinfo).keys()
 
         if (
-                "name" in caseinfo_keys
-                and "request" in caseinfo_keys
-                and "expected" in caseinfo_keys
+            "name" in caseinfo_keys
+            and "request" in caseinfo_keys
+            and "expected" in caseinfo_keys
         ):
             case_name = caseinfo["name"]
-            # 一级关键字request下必须有的二级关键字 method url modoule
+            # 一级关键字request下必须有的二级关键字 method url module
             if (
-                    "method" in dict(caseinfo)["request"].keys()
-                    and "url" in dict(caseinfo)["request"].keys()
-                    and "modoule" in dict(caseinfo)["request"].keys()
+                "method" in dict(caseinfo)["request"].keys()
+                and "url" in dict(caseinfo)["request"].keys()
+                and "module" in dict(caseinfo)["request"].keys()
             ):
                 url = caseinfo["request"]["url"]
                 method = caseinfo["request"]["method"]
@@ -155,29 +155,27 @@ class request_Util:
 
         return res
 
-    def send_request(self, case_name, url, method, modoule, headers, files, **kwargs):
+    def send_request(self, case_name, url, method, module, headers, files, **kwargs):
         # 处理url
-        if modoule == "open":
+        if module == "open":
             self.url = self.open_url + url
             if headers and isinstance(headers, dict):
                 headers = {**self.open_default_header, **headers}
                 # headers = self.replace_expression(headers)
             else:
                 headers = self.open_default_header
-        elif modoule == "cloud":
+        elif module == "cloud":
             self.url = self.cloud_url + url
             if headers and isinstance(headers, dict):
                 headers = {**self.cloud_default_header, **headers}
             else:
                 headers = self.cloud_default_header
-        elif modoule == "oss":
+        elif module == "oss":
             self.url = self.oss_url + url
             if "login" not in url:
                 oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
                 headers = {**oss_token, **headers}
             headers = headers
-        elif modoule== "auth":
-            self.url = self.auth_url + url
         else:
             self.url = self.sign_url + url
             if "login" not in url:
@@ -203,10 +201,10 @@ class request_Util:
 
         sesseion = requests.session()
         log.logger.info(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod},请求头->{headers},files->{file_map}，参数{kwargs}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
         )
         allure.attach(
-            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod},请求头->{headers},files->{file_map}，参数{kwargs}"
+            f"请求用例->{case_name},请求地址->{self.url},请求方式->{self.lastmethod },请求头->{headers},files->{file_map}，参数{kwargs}"
         )
         res = sesseion.request(
             url=self.url,
@@ -215,6 +213,9 @@ class request_Util:
             files=file_map,
             **kwargs,
         )
+        import pdb
+
+        pdb.set_trace()
 
         return res
 

@@ -7,7 +7,7 @@
       Content-Type: application/x-www-form-urlencoded
       Checkcaptcha: 'true'
       X-Requested-With: XMLHttpRequest
-    modoule: oss
+    module: oss
     data:
       username: Qys_Admin
       password: '{cipher}dBTjme75g481bO96ivoboUADbbXdW7Z9U6bHitCgzczVbNiTd6d4/zLKDJN8cfkQ9gvxjmwQhDYqnk1Teu7alkRGpzOcOjogzuEpyEIiPTOLDlwFTQmb4Qk9ytX2Dnao5EfFVT36KaB9OD7PJy2KV9LVujNQqm8vqGMLKR2YR24='

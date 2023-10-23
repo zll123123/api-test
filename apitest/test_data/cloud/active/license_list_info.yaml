@@ -3,7 +3,7 @@
   request:
     method: post
     url: /crm/oss/customer/license/list
-    modoule: cloud
+    module: cloud
     headers:
       Content-Type: application/json
     json:

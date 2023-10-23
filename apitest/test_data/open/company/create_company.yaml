@@ -3,7 +3,7 @@
   request:
     method: POST
     url: /company/create
-    modoule: open
+    module: open
     data:
       name: 内部印章测试${GenTimestamp}()
       registerNo: 422${GenTimestamp}()

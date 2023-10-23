@@ -1,21 +1,16 @@
 -
-  name: 获取个人认证链接
+  name: 获取auth模块的token和ticket信息
   request:
     method: get
-    url: /api/user/auth/url
+    url: ${get_extract}(user_authurl)
     headers:
       Content-Type: application/x-www-form-urlencoded
       X-Requested-With: XMLHttpRequest
     module: sign
     params:
-      authMode: DEFAULT
-      userId: ${get_extract}(userId)
-      again: false
-      channel: PRIVATE_PC
-      pageUrl: http://www.baidu.com
   expected:
     - eq: {'code':0}
     - eq: {'message':SUCCESS }
   extract:
-    user_authurl : result
-
+    auth_token : token
+    auth_ticket: ticket

@@ -23,7 +23,7 @@
   request:
     method: post
     url: /crm/oss/customer/license/generate
-    modoule: cloud
+    module: cloud
     headers:
       Content-Type: application/json
     json:

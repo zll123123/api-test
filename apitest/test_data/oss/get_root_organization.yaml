@@ -5,7 +5,7 @@
     url: /api/organization/root
     headers:
        X-Requested-With: XMLHttpRequest
-    modoule: oss
+    module: oss
     params:
   expected:
     - eq: {'code':0}
