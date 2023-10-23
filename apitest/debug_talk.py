@@ -25,6 +25,7 @@ class Debug_talk:
             # 返回base64编码字符串
             return b64_encode
 
+
     def GenTimestamp(self):
         return int(time.time())
 

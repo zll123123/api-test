@@ -1,0 +1,15 @@
+-
+  name: 上传个人身份证图片
+  request:
+    method: POST
+    url: /person/manual/upload/image
+    headers:
+    modoule: auth
+    files:
+      image: /images/营业执照.png
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':SUCCESS }
+  extract:
+    card_image_key : result
+

@@ -12,7 +12,7 @@ import subprocess
 def run_tests():
     test_files = glob.glob("./test_case/*/*.py")
     # story_name = "active"
-    story_name = "regression"
+    story_name = "testapi"
     command = f"pytest -m \"{story_name}\" {' '.join(test_files)} -s"
     subprocess.run(command, shell=True)
 

@@ -9,3 +9,5 @@ sign:
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
   X-Qys-Oss-Token: 573fc2fe-3a5f-4723-9891-26a24db8a895
+auth:
+  auth_url: https://person-auth.qiyuesuo.cn

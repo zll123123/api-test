@@ -21,3 +21,16 @@ class TestCompany:
     @pytest.mark.run(order=4)
     def test_create_company(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
+
+
+    @pytest.mark.regression
+    @pytest.mark.parametrize(
+        "new_case_info",
+        read_case_yaml(
+            os.path.join(rootpath, "test_data/sign/company_create_info.yaml")
+        ),
+    )
+    @allure.story("提交法人单位认证")
+    @pytest.mark.run(order=4)
+    def test_create_company(self, new_case_info):
+        request_Util().analyse_yaml(new_case_info)
