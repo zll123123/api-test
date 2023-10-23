@@ -1,0 +1,19 @@
+-
+  name: 获取个人认证链接
+  request:
+    method: get
+    url: /api/user/auth/url
+    headers:
+    modoule: auth
+    params:
+      authMode: DEFAULT
+      userId:
+      again: false
+      channel: PRIVATE_PC
+      pageUrl: https://app24.qiyuesuo.net/usercenter/info?authCheck=true
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':SUCCESS }
+  extract:
+    card_image_key : result
+
