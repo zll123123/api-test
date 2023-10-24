@@ -117,12 +117,11 @@ class request_Util:
             if (
                 "method" in dict(caseinfo)["request"].keys()
                 and "url" in dict(caseinfo)["request"].keys()
-                and "module" in dict(caseinfo)["request"].keys()
+
             ):
                 url = caseinfo["request"]["url"]
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
-
                 files = None
                 headers = None
                 if jsonpath.jsonpath(caseinfo, "$..files"):
@@ -176,11 +175,14 @@ class request_Util:
                 oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
                 headers = {**oss_token, **headers}
             headers = headers
-        else:
+        elif module == "sign":
             self.url = self.sign_url + url
             if "login" not in url:
                 sign_token = {"Cookie": "QID=" + get_extract("sign_token")}
                 headers = {**sign_token, **headers}
+        else:
+            self.url = self.open_url + self.replace_expression(url)
+
         self.lastmethod = method.lower()
         file_map = {}
         if files and isinstance(files, dict):

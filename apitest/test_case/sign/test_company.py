@@ -22,7 +22,6 @@ class TestCompany:
     def test_create_company(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-
     @pytest.mark.regression
     @pytest.mark.parametrize(
         "new_case_info",

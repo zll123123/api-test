@@ -15,7 +15,7 @@
       pageUrl: http://www.baidu.com
   expected:
     - eq: {'code':0}
-    - eq: {'message':SUCCESS }
+    - eq: {'message':'请求成功'}
   extract:
     user_authurl : result
 

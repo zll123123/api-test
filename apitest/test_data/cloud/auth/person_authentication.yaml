@@ -1,12 +1,11 @@
 -
   name: 获取auth模块的token和ticket信息
   request:
-    method: get
+    method: GET
     url: ${get_extract}(user_authurl)
     headers:
       Content-Type: application/x-www-form-urlencoded
       X-Requested-With: XMLHttpRequest
-    module: sign
     params:
   expected:
     - eq: {'code':0}
