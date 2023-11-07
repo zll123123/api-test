@@ -117,13 +117,15 @@ class request_Util:
             if (
                 "method" in dict(caseinfo)["request"].keys()
                 and "url" in dict(caseinfo)["request"].keys()
-
             ):
                 url = caseinfo["request"]["url"]
                 method = caseinfo["request"]["method"]
                 # request下可能有json params files 等,而请求可能会有params json data等，可以约束的是files  headers
                 files = None
                 headers = None
+                module = None
+                if jsonpath.jsonpath(caseinfo, "$..module"):
+                    files = caseinfo["request"].pop("module")
                 if jsonpath.jsonpath(caseinfo, "$..files"):
                     files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):
@@ -139,6 +141,7 @@ class request_Util:
                     method=method,
                     headers=None if not headers else headers,
                     files=None if not files else files,
+                    module=None if not module else module,
                     **caseinfo["request"],
                 )
 
@@ -157,31 +160,32 @@ class request_Util:
     def send_request(self, case_name, url, method, module, headers, files, **kwargs):
         # 处理url
         if module == "open":
-            self.url = self.open_url + url
+            self.url = self.open_url + self.replace_expression(url)
             if headers and isinstance(headers, dict):
                 headers = {**self.open_default_header, **headers}
                 # headers = self.replace_expression(headers)
             else:
                 headers = self.open_default_header
         elif module == "cloud":
-            self.url = self.cloud_url + url
+            self.url = self.cloud_url + self.replace_expression(url)
             if headers and isinstance(headers, dict):
                 headers = {**self.cloud_default_header, **headers}
             else:
                 headers = self.cloud_default_header
         elif module == "oss":
-            self.url = self.oss_url + url
+            self.url = self.oss_url + self.replace_expression(url)
             if "login" not in url:
                 oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
                 headers = {**oss_token, **headers}
             headers = headers
         elif module == "sign":
-            self.url = self.sign_url + url
+            self.url = self.sign_url + self.replace_expression(url)
             if "login" not in url:
                 sign_token = {"Cookie": "QID=" + get_extract("sign_token")}
                 headers = {**sign_token, **headers}
         else:
-            self.url = self.open_url + self.replace_expression(url)
+            # 直接返回结果中的链接请求
+            self.url = self.replace_expression(url)
 
         self.lastmethod = method.lower()
         file_map = {}
@@ -215,9 +219,6 @@ class request_Util:
             files=file_map,
             **kwargs,
         )
-        import pdb
-
-        pdb.set_trace()
 
         return res
 

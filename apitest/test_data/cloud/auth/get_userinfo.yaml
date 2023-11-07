@@ -10,7 +10,7 @@
     params:
   expected:
     - eq: {'code':0}
-    - eq: {'message':SUCCESS }
+    - eq: {'message': 请求成功 }
   extract:
     empId : result.employee.id
     userId: result.employee.userId
