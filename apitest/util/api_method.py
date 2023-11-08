@@ -2,6 +2,7 @@ import hashlib
 import json
 
 import os
+import re
 from datetime import time
 import time
 
@@ -10,6 +11,7 @@ import allure
 import jsonpath
 
 from apitest.util import log
+from bs4 import BeautifulSoup
 import requests
 
 from apitest.debug_talk import Debug_talk
@@ -93,12 +95,19 @@ class request_Util:
     def get_depend_data(self, caseinfo, res):
         if "extract" in dict(caseinfo).keys():
             # json提取
+            content_type = res.headers.get("Content-Type")
             extract_data = {}
-            depend_data = res.json()
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
-
-                extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
+                if content_type.startswith("application/json"):
+                    depend_data = res.json()
+                    extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
+                # html提取
+                elif content_type.startswith("text/html"):
+                    match = re.search(
+                        r'"ticket":\s*"([^"]+)",\s*"token":\s*"([^"]+)"', res.text
+                    )
+                    extract_data[key] = match
             write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
@@ -125,7 +134,7 @@ class request_Util:
                 headers = None
                 module = None
                 if jsonpath.jsonpath(caseinfo, "$..module"):
-                    files = caseinfo["request"].pop("module")
+                    module = caseinfo["request"].pop("module")
                 if jsonpath.jsonpath(caseinfo, "$..files"):
                     files = caseinfo["request"].pop("files")
                 if jsonpath.jsonpath(caseinfo, "$..headers"):

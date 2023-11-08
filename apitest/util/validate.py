@@ -1,4 +1,5 @@
 import json
+import re
 
 
 def validate_json(input_str):
@@ -9,4 +10,14 @@ def validate_json(input_str):
     except:
         pass
     # logger.info(f"input str: {input_str} res: {res}")
+    return res
+
+
+def validate_re(pattern):
+    res = False
+    try:
+        re.compile(pattern)
+        is_regex = True
+    except re.error:
+        is_regex = False
     return res

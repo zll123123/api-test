@@ -6,7 +6,7 @@
     headers:
       x-authtoken:
       x-ticket:
-    module: auth
+    module: sign
     files:
       image: /images/营业执照.png
   expected:

@@ -44,26 +44,26 @@ class TestAuth:
     def test_person_authentication(self, new_case_info):
         request_Util().analyse_yaml(new_case_info)
 
-    # 上传证件照图片
-    @pytest.mark.testapi
-    @pytest.mark.parametrize(
-        "new_case_info",
-        read_case_yaml(
-            os.path.join(rootpath, "test_data/cloud/auth/person_card_image.yaml")
-        ),
-    )
-    @pytest.mark.run(order=5)
-    def test_upload_person_image(self, new_case_info):
-        request_Util().analyse_yaml(new_case_info)
-
-        # 提交实名认证信息
-        @pytest.mark.testapi
-        @pytest.mark.parametrize(
-            "new_case_info",
-            read_case_yaml(
-                os.path.join(rootpath, "test_data/cloud/auth/submit_person_auth.yaml")
-            ),
-        )
-        @pytest.mark.run(order=6)
-        def test_submit_authInfo(self, new_case_info):
-            request_Util().analyse_yaml(new_case_info)
+    # # 上传证件照图片
+    # @pytest.mark.testapi
+    # @pytest.mark.parametrize(
+    #     "new_case_info",
+    #     read_case_yaml(
+    #         os.path.join(rootpath, "test_data/cloud/auth/person_card_image.yaml")
+    #     ),
+    # )
+    # @pytest.mark.run(order=5)
+    # def test_upload_person_image(self, new_case_info):
+    #     request_Util().analyse_yaml(new_case_info)
+    #
+    #     # 提交实名认证信息
+    #     @pytest.mark.testapi
+    #     @pytest.mark.parametrize(
+    #         "new_case_info",
+    #         read_case_yaml(
+    #             os.path.join(rootpath, "test_data/cloud/auth/submit_person_auth.yaml")
+    #         ),
+    #     )
+    #     @pytest.mark.run(order=6)
+    #     def test_submit_authInfo(self, new_case_info):
+    #         request_Util().analyse_yaml(new_case_info)

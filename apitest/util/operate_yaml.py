@@ -50,8 +50,6 @@ def get_extract(key):
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
         return result[key]
 
-    # 读取caseinfo文
-
 
 def read_case_yaml(yamlpath):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
