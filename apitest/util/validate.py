@@ -13,11 +13,10 @@ def validate_json(input_str):
     return res
 
 
-def validate_re(pattern):
+def recognize_re(s):
     is_regex = False
-    try:
-        re.compile(pattern)
+    if s.startswith("r'"):
         is_regex = True
-    except re.error:
+    else:
         is_regex = False
     return is_regex

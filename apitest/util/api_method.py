@@ -24,7 +24,7 @@ from apitest.util.operate_yaml import (
     get_extract,
 )
 from apitest.util.upload_file import upload_file
-from apitest.util.validate import validate_re
+from apitest.util.validate import recognize_re
 
 
 class request_Util:
@@ -97,22 +97,24 @@ class request_Util:
         if "extract" in dict(caseinfo).keys():
             # json提取
             content_type = res.headers.get("Content-Type")
+            log.logger.error(content_type)
             extract_data = {}
-            log.logger.error(res.text)
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
-                if content_type.startswith("application/json"):
+                # 正则提取
+                if recognize_re(value):
+                    log.logger.error(1)
+                    match = re.search(value, res.text).group(0)
+                    log.logger.error(match)
+                    extract_data[key] = match
+                else:
+                    # json提取
                     depend_data = res.json()
+                    log.logger.error(2)
                     extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
-                # html提取
-                elif content_type.startswith("text/html"):
-                    log.logger.error(content_type)
-                    if validate_re(value):
-                        log.logger.error(1)
-                        match = re.search(value, res.text).group(0)
-                        log.logger.error(match)
-                        extract_data[key] = match
-                write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
+
+            log.logger.error(extract_data)
+            write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
@@ -157,7 +159,7 @@ class request_Util:
                     module=None if not module else module,
                     **caseinfo["request"],
                 )
-
+                log.logger.error(res.text)
                 # self.assert_result(caseinfo["expected"], res)
                 try:
                     self.get_depend_data(caseinfo, res)
@@ -199,7 +201,6 @@ class request_Util:
         else:
             # 直接返回结果中的链接请求
             self.url = self.replace_expression(url)
-
         self.lastmethod = method.lower()
         file_map = {}
         if files and isinstance(files, dict):

@@ -18,4 +18,5 @@
     - eq: {'message':'请求成功'}
   extract:
     user_authurl : result
+    auth_url: http[^?]+\b
 
