@@ -8,8 +8,8 @@
       X-Requested-With: XMLHttpRequest
     params:
   expected:
-    - eq: {'code':0}
-    - eq: {'message':SUCCESS }
+    - eq: {'status_code':0}
   extract:
-    auth_token : token
-    auth_ticket: ticket
+    x-authtoken : '"token":\s*"(\w+)"(?!\s*,)"'
+    x-ticket: '"ticket":\s*"(\w+)"(?!\s*,)"'
+

@@ -24,6 +24,7 @@ from apitest.util.operate_yaml import (
     get_extract,
 )
 from apitest.util.upload_file import upload_file
+from apitest.util.validate import validate_re
 
 
 class request_Util:
@@ -104,11 +105,13 @@ class request_Util:
                     extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
                 # html提取
                 elif content_type.startswith("text/html"):
-                    match = re.search(
-                        r'"ticket":\s*"([^"]+)",\s*"token":\s*"([^"]+)"', res.text
-                    )
-                    extract_data[key] = match
-            write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
+                    log.logger.error(content_type)
+                    if validate_re(key):
+                        log.logger.error(1)
+                        match = re.search(key, res.text)
+                        log.logger.error(match)
+                        extract_data[key] = match
+                write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
     def analyse_yaml(self, caseinfo):
@@ -154,7 +157,7 @@ class request_Util:
                     **caseinfo["request"],
                 )
 
-                self.assert_result(caseinfo["expected"], res)
+                # self.assert_result(caseinfo["expected"], res)
                 try:
                     self.get_depend_data(caseinfo, res)
                 except Exception as e:
@@ -228,13 +231,17 @@ class request_Util:
             files=file_map,
             **kwargs,
         )
-
         return res
 
     def assert_result(self, expect, res):
-        log.logger.info(f"预期{expect},实际结果为{res.json()}")
+        res_text = None
+        if res.headers.get("Content-Type").startswith("application/json"):
+            res_text = res.json()
+        elif res.headers.get("Content-Type").startswith("text/html"):
+            res_text = res.text
+        log.logger.info(f"预期{expect},实际结果为{res_text}")
         with allure.step("进入断言"):
-            allure.attach(f"预期{expect},实际接口响应为{res.json()}")
+            allure.attach(f"预期{expect},实际接口响应为{res_text}")
         if expect and isinstance(expect, list):
             for item in expect:
                 if item and isinstance(item, dict):

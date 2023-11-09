@@ -1,4 +1,8 @@
-sign_token: 4b219f12-3c03-4ade-88c0-806fd3a11bcb
+sign_token: 6b493deb-eb75-442f-8cfd-362142e34ed6
+empId: '3141663181004722972'
 empId: '3141663181004722972'
 userId: '3141663180887282458'
-user_authurl: https://person-auth.qiyuesuo.me?ticket=vNVepTVcEMgjpMFmd2u0tErH%2FPAjp6%2F97gSpQY%2BkV1XbcuisS8hghs7vMBSQaDbL&channel=PRIVATE
+user_authurl: https://person-auth.qiyuesuo.me?ticket=sEOoi8R%2BWLFKSoV%2BAOUbw3PhNbJ2dSGE%2FH8hECe7EgUc5DeKtMm4C%2FEIBpQ%2FMn%2Fn&channel=PRIVATE
+x-authtoken: null
+x-authtoken: null
+x-ticket: null

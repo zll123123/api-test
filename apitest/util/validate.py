@@ -14,10 +14,10 @@ def validate_json(input_str):
 
 
 def validate_re(pattern):
-    res = False
+    is_regex = False
     try:
         re.compile(pattern)
         is_regex = True
     except re.error:
         is_regex = False
-    return res
+    return is_regex
