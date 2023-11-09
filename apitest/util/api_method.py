@@ -98,6 +98,7 @@ class request_Util:
             # json提取
             content_type = res.headers.get("Content-Type")
             extract_data = {}
+            log.logger.error(res.text)
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
                 if content_type.startswith("application/json"):
@@ -106,9 +107,9 @@ class request_Util:
                 # html提取
                 elif content_type.startswith("text/html"):
                     log.logger.error(content_type)
-                    if validate_re(key):
+                    if validate_re(value):
                         log.logger.error(1)
-                        match = re.search(key, res.text)
+                        match = re.search(value, res.text).group(0)
                         log.logger.error(match)
                         extract_data[key] = match
                 write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)

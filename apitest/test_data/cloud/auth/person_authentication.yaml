@@ -10,6 +10,6 @@
   expected:
     - eq: {'status_code':0}
   extract:
-    x-authtoken : '"token":\s*"(\w+)"(?!\s*,)"'
-    x-ticket: '"ticket":\s*"(\w+)"(?!\s*,)"'
+    x-authtoken : token:\s*"([^"]+)"
+    x-ticket: ticket:\s*"([^"]+)"
 

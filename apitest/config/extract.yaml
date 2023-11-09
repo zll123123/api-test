@@ -1,8 +1,8 @@
-sign_token: 6b493deb-eb75-442f-8cfd-362142e34ed6
+sign_token: cc62701f-5611-4756-91c0-77309dc506ad
 empId: '3141663181004722972'
 empId: '3141663181004722972'
 userId: '3141663180887282458'
-user_authurl: https://person-auth.qiyuesuo.me?ticket=sEOoi8R%2BWLFKSoV%2BAOUbw3PhNbJ2dSGE%2FH8hECe7EgUc5DeKtMm4C%2FEIBpQ%2FMn%2Fn&channel=PRIVATE
-x-authtoken: null
-x-authtoken: null
-x-ticket: null
+user_authurl: https://person-auth.qiyuesuo.me?ticket=PxdXakBp4XDeH1alJTRpCCd6IDF%2F9xhRyW2QMdCx8qIliDK4colXsnOJBr8OR711&channel=PRIVATE
+x-authtoken: 'token: "3b5a6ea6-32cc-4477-bf20-43a4c962e717"'
+x-authtoken: 'token: "3b5a6ea6-32cc-4477-bf20-43a4c962e717"'
+x-ticket: 'ticket: "d6b8dad4-5c8f-4166-aa24-1783cd8371b3"'
