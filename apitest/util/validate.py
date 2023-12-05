@@ -14,8 +14,7 @@ def validate_json(input_str):
 
 
 def recognize_re(s):
-    is_regex = False
-    if s.startswith("r'"):
+    if "[" in s and "]" in s:
         is_regex = True
     else:
         is_regex = False

@@ -95,25 +95,21 @@ class request_Util:
     # 处理接口返回结果中的依赖数据
     def get_depend_data(self, caseinfo, res):
         if "extract" in dict(caseinfo).keys():
-            # json提取
-            content_type = res.headers.get("Content-Type")
-            log.logger.error(content_type)
             extract_data = {}
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
                 # 正则提取
                 if recognize_re(value):
-                    log.logger.error(1)
+                    log.logger.error(res.text)
+                    log.logger.error(type(res.text))
+                    log.logger.error(value)
                     match = re.search(value, res.text).group(0)
-                    log.logger.error(match)
                     extract_data[key] = match
                 else:
                     # json提取
                     depend_data = res.json()
-                    log.logger.error(2)
                     extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
 
-            log.logger.error(extract_data)
             write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
     # 规范测试用例文件的写法
@@ -159,8 +155,7 @@ class request_Util:
                     module=None if not module else module,
                     **caseinfo["request"],
                 )
-                log.logger.error(res.text)
-                # self.assert_result(caseinfo["expected"], res)
+                self.assert_result(caseinfo["expected"], res)
                 try:
                     self.get_depend_data(caseinfo, res)
                 except Exception as e:

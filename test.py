@@ -1,17 +1,27 @@
 import json
 import os
+import re
 
 import jsonpath
 
+from apitest.util import log
+from apitest.util.validate import recognize_re
+
+
+def get_data():
+    res = '{"result":"https://person-auth.qiyuesuo.me?ticket=dIaAEUyCc8Rgzk1p107GcdYCjhy3TtDIqid3Qwx9eSFUC59plwPH0hfZ9Qq6%2FX6u&channel=PRIVATE","code":0,"message":"\u8BF7\u6C42\u6210\u529F"}'
+    res1 = json.loads(res)
+    caseinfo = {"auth_url": r"(https?://[^\s?]+)"}
+    extract_data = {}
+    for key, value in caseinfo.items():
+        log.logger.info(f"要提取的参数的为{key},{value}")
+        # 正则提取
+        if recognize_re(value):
+            log.logger.error(1)
+            match = re.search(value, res).group(0)
+            log.logger.error("值为" + match)
+            extract_data[key] = match
+
+
 if __name__ == "__main__":
-    # 去除转义字符
-    str1 = '{"code":0,"message":"SUCCESS","result":{"pageNo":1,"pageSize":10,"result":[{"id":"3125464328683655374","name":"萌点科技-layla.zhang1691248764","createTime":"2023-08-05 23:19:24","pm":"zll_03","am":"zll_01","cs":"zll_02","contact":"PASSPORT","contactPhone":"1234567890","agentId":"10000","agentName":"上海亘岩网络科技有限公司","source":"MANUAL","auth":false,"status":"BUILDING","online":false,"platformType":"PRIVATE","balanceState":"normal","balance":"0","feeState":"normal","totalRecharge":"0","apps":["PRIVATE"],"sorter":"3125464328683655374","systemId":"测试12344555","searchName":"萌点科技-layla.zhang1691248764-测试12344555","platFeeRuleStatus":"未设置"}],"totalCount":1,"hasNext":false,"totalPages":1,"nextPage":1,"hasPre":false,"prePage":1,"first":1}}'
-
-    data = json.loads(str1)
-    print(data)
-
-    agrs = "result.result[0].id"
-
-    # 使用 jsonpath 来提取属性值
-    result = jsonpath.jsonpath(data, "$." + agrs)
-    print(result[0])
+    get_data()
