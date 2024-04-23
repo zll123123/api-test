@@ -9,10 +9,10 @@ import time
 
 import allure
 import jsonpath
+import requests
 
 from apitest.util import log
-from bs4 import BeautifulSoup
-import requests
+
 
 from apitest.debug_talk import Debug_talk
 from apitest.util.rootpath import rootpath

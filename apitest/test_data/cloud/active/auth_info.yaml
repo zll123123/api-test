@@ -30,3 +30,4 @@
   expected:
     - eq: { 'code': 0 }
     - eq: { 'message': SUCCESS }
+

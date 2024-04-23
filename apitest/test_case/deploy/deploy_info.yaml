@@ -1,5 +1,5 @@
 -
-  name: 变更私有云服务状态
+  name: 变更私有云服务状态(即启动或停止私有云服务)
   svc_name: layla_qiyuesuo
   svc_display_name: qiyuesuo
   service_path: D:\test_auto_deploy
