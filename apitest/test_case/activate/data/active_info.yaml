@@ -24,14 +24,14 @@
         platformType: PRIVATE
         name: ${common_data}(companyName)
         systemId: ${get_extract}(identifier)
-        contact: PASSPORT
+        contact: 张玲玲
         contactPhone: 1234567890
         am: zll_01
         cs: zll_02
         pm: zll_03
         agentId: 10000
         identifier: ${get_extract}(identifier)
-        apps: [ "PRIVATE" ]
+        app: PRIVATE
     expected:
       - eq: { 'code': 0 }
       - eq: { 'message': SUCCESS }
@@ -108,7 +108,7 @@
         fee: false
         ofd: true
         feeAllocation: true
-      expireTime: '2024-07-30 16:46:19'
+      expireTime: '2025-07-30 16:46:19'
       expire: true
       icmaxMark: false
       cmaxMark: false
@@ -160,7 +160,7 @@
   request:
     method: post
     url: /api/setup/license
-    module: oss
+    module:
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:
@@ -174,7 +174,7 @@
   request:
     method: post
     url: /api/setup/database
-    module: oss
+    module:
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:

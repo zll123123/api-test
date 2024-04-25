@@ -6,20 +6,20 @@ import allure
 from apitest.util.api_method import request_Util
 from apitest.util.operate_yaml import read_case_yaml
 from apitest.util.rootpath import rootpath
+import pytest
 
 
 @pytest.mark.active
 class Test_activate:
-    @pytest.mark.parametrize("case_info",read_case_yaml(
+    @pytest.mark.parametrize(
+        "case_info",
+        read_case_yaml(
             os.path.join(rootpath, "test_case/activate/data/active_info.yaml")
-        ),)
-
-    def test_activate(self,case_info):
+        ),
+    )
+    def test_activate(self, case_info):
         allure.dynamic.title(case_info["name"])
         request_Util().analyse_yaml(case_info)
-
-
-
 
     # @pytest.mark.run(order=2)
     # @pytest.mark.parametrize(

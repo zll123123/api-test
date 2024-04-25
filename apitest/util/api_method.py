@@ -85,7 +85,6 @@ class request_Util:
                 else:
                     value = getattr(Debug_talk(), func)(*args_list)
                 data_new = data_new.replace(fun_agrs, str(value))
-                log.logger.info(f"替换后的字符串为{data_new}")
         if isinstance(data, dict):
             data = json.loads(data_new)
         else:
@@ -98,17 +97,15 @@ class request_Util:
             extract_data = {}
             for key, value in caseinfo["extract"].items():
                 log.logger.info(f"要提取的参数的为{key},{value}")
-                # 正则提取
-                if recognize_re(value):
-                    log.logger.error(res.text)
-                    log.logger.error(type(res.text))
-                    log.logger.error(value)
-                    match = re.search(value, res.text).group(0)
-                    extract_data[key] = match
-                else:
-                    # json提取
-                    depend_data = res.json()
-                    extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
+                # # 正则提取
+                # if recognize_re(value):
+                #     match = re.search(value, res.text).group(0)
+                #     extract_data[key] = match
+                # else:
+
+                # json提取
+                depend_data = res.json()
+                extract_data[key] = jsonpath.jsonpath(depend_data, "$." + value)[0]
 
             write_yaml(os.path.join(rootpath, "config/extract.yaml"), extract_data)
 
@@ -184,9 +181,9 @@ class request_Util:
                 headers = self.cloud_default_header
         elif module == "oss":
             self.url = self.oss_url + self.replace_expression(url)
-            if "login" not in url:
-                oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
-                headers = {**oss_token, **headers}
+            # if "login" not in url:
+            #     oss_token = {"Cookie": "OSSID=" + get_extract("oss_token")}
+            #     headers = {**oss_token, **headers}
             headers = headers
         elif module == "sign":
             self.url = self.sign_url + self.replace_expression(url)
@@ -228,6 +225,7 @@ class request_Util:
             files=file_map,
             **kwargs,
         )
+        log.logger.error(f'响应结果为-------------->{res.json()}')
         return res
 
     def assert_result(self, expect, res):
@@ -236,7 +234,7 @@ class request_Util:
             res_text = res.json()
         elif res.headers.get("Content-Type").startswith("text/html"):
             res_text = res.text
-        log.logger.info(f"预期{expect},实际结果为{res_text}")
+        log.logger.info('res-------------------->',res_text)
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res_text}")
         if expect and isinstance(expect, list):

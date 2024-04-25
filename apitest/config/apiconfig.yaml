@@ -3,11 +3,11 @@ open:
     app_secret: YsXg4n3PCX6beVapWI2XUrmE6c4fEx
     openurl: http://192.168.40.210:9182
 oss:
-    oss_url: http://192.168.40.210:9181
+    oss_url: http://43.159.49.39:9181
 sign:
   sign_url: http://192.168.40.210:9180
 cloud:
   cloud_url: https://crm.qiyuesuo.me/api
-  X-Qys-Oss-Token: 573fc2fe-3a5f-4723-9891-26a24db8a895
+  X-Qys-Oss-Token: cb6335fe-007d-46f8-8f99-698a8b05ee79
 auth:
   auth_url: https://person-auth.qiyuesuo.cn
