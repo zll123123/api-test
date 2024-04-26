@@ -1,7 +1,1 @@
-MYSQL:
-  url: 43.159.49.39
-  port: 3306
-  dbname: api_test
-  username: root
-  password: dPuVIgWAUN
 
