@@ -1,0 +1,29 @@
+-
+  name: sign平台创建未未认证的法人单位
+  request:
+    method: POST
+    url: /api/organization/add/section
+    headers:
+      Content-Type: application/json
+      X-Requested-With: XMLHttpRequest
+    module: sign
+    json:
+      department:
+        companyName: 印章测试公司${GenTimestamp}()
+        orgId: ${get_extract}(orgId)
+        orgCode: ''
+        parentId: ${get_extract}(parent_id)
+        parentName: ''
+        supervisorEmployees: [ ]
+        companyId: ''
+        type: SECTION
+        departmentPath: ''
+        createCompany: true
+      companyInfoVo:
+        legalPerson: ${common_data}(userName)
+      createCompany: true
+  expected:
+    - eq: {'code':0}
+    - eq: {'message': 请求成功 }
+
+

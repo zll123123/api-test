@@ -1,0 +1,111 @@
+-
+  name:  sign平台创建电子印章
+  request:
+    method: POST
+    url: /api/seal/create
+    headers:
+      Content-Type: application/json
+      X-Qid: ${get_extract}(app_token)
+    module: sign
+    json:
+      operateType: CREATE
+      category: ELECTRONIC
+      type: COMPANY
+      sealCertCreateType: APPLY
+      ukeyChopAdmitType: CUSTOM
+      name:  sign平台创建电子章
+      owner: '3126711382949036231'
+      ownerName: ${common_data}(companyName)
+      departmentId: '3126711380956741789'
+      departmentPath: ${common_data}(companyName)
+      departmentFullPath: ${common_data}(companyName)
+      enable: true
+      ownerStatus: true
+      needCheckAuth: false
+      sealCategoryId: '3126711824262975682'
+      sealCategoryName: ''
+      sealCustomFields: [ ]
+      customParamConfigGroupVos: [ ]
+      sealManager:
+        - subjectId: '3126712296667435620'
+          subjectName: 三八
+          subjectType: USER
+          companyName: 萌点科技
+          timeType: FOREVER
+      sealUser:
+        - subjectId: '3126712296667435620'
+          subjectName: 三八
+          subjectType: USER
+          companyName: 萌点科技
+          timeType: FOREVER
+      sealDiyPermissionBos: [ ]
+      orignSealKey: ''
+      sealCheckType: NONE
+      sealCertType: CLOUD_CERT
+      waitForBindUkeyIds: [ ]
+      waitForBindOtpTokenSealIds: [ ]
+      sealCustomizedFields: [ ]
+      holder: ''
+      holderName: ''
+      waitForBindUkeyId: ''
+      sealPermissionTimeUpdateBeans: [ ]
+      electronicModel:
+        sealSpec: CIRCULAR_40
+        width: ''
+        height: ''
+        openImageBlur: false
+        radius: 60
+        transparency: 51
+        auto: true
+        specEntityId: ''
+        showWatemark: true
+        uploadOriginImage: ''
+        pictureHandleStr: ''
+        uploadOriginImageFormat: png
+        autoAttribute:
+          sealCategory: enterprise
+          sealCategoryType: enterprise
+          edgeWidth: '1.1'
+          innerEdgeWidth: ''
+          sealLogo: true
+          logoSize: '13'
+          content: 萌点科技
+          innerContent: ''
+          head: ''
+          foot: ''
+          enterpriseCode: test12345678
+          antifake: true
+          antifakeGap: true
+          sealWidth: ''
+          sealHeight: ''
+          lineWidth: ''
+          fontSize: ''
+          wordLinePadding: ''
+          enterprisecodeFontSize: ''
+          headWidth: ''
+          headDistance: ''
+          headFontSize: ''
+          footWidth: ''
+          footDistance: ''
+          footFontSize: ''
+          logoUpmove: ''
+          lineInterval: ''
+          lineLength: ''
+          innerOvalWidth: ''
+          innerMargin: ''
+          innerOvalHeight: ''
+          innerOvalFontSize: ''
+          innerOvalWordLinePadding: ''
+          innerOvalEdgeWidth: ''
+          foots: [ ]
+          arc: ''
+          outterTextAngle: ''
+          innerTextAngle: ''
+          infoCodeAngle: ''
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':SUCCESS }
+  extract:
+    ownerId : result.owner
+    sealId: result.id
+

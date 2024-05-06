@@ -1,0 +1,15 @@
+-
+  name: 添加员工
+  request:
+    method: post
+    url: /employee/create
+    module: open
+    json:
+      name: ${common_data}(userName)
+      contact: ${common_data}(userMobile)
+      password: ${common_data}(password)
+      companyName: ${companyName}
+      cardNo: 4556
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }

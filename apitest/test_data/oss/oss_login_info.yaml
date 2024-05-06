@@ -1,0 +1,22 @@
+-
+  name:  $csv{case_name}
+  request:
+    method: POST
+    url: /api/login
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+      Checkcaptcha: 'true'
+      X-Requested-With: XMLHttpRequest
+    module: oss
+    data:
+      username: Qys_Admin
+      password: '{cipher}dBTjme75g481bO96ivoboUADbbXdW7Z9U6bHitCgzczVbNiTd6d4/zLKDJN8cfkQ9gvxjmwQhDYqnk1Teu7alkRGpzOcOjogzuEpyEIiPTOLDlwFTQmb4Qk9ytX2Dnao5EfFVT36KaB9OD7PJy2KV9LVujNQqm8vqGMLKR2YR24='
+      captcha:
+      oss: oss
+      loginCheck: '{loginCheck}qTXPc0mpXpghuk14SxbaI/OVxu8K4rat54I+/HYw6C14DK2Fy1EXSDglzjDgWtcoZ/IB1xzqG5hNExdkZ+9BbgKCztJY0CyG3JrSTVSgGavkzq64+hnwHbb+nNp+lewPjwe04RUeVhX3n1CnekkmdFTS69FGA9W3yTdw0SvP8vk='
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':登录成功 }
+  extract:
+    oss_token : token
+

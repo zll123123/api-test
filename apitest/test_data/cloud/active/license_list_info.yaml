@@ -1,0 +1,17 @@
+-
+  name: 获取license_list，得到license id
+  request:
+    method: post
+    url: /crm/oss/customer/license/list
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      customerId: ${get_extract}(customerId)
+      pageNo: 1
+      pageSize: 10
+  extract:
+    licenseId: result.result[0].id
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }

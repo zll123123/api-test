@@ -1,0 +1,16 @@
+-
+  name: 上传个人身份证图片
+  request:
+    method: POST
+    url: /person/manual/upload/image
+    headers:
+      x-authtoken: ${get_extract}(authtoken)
+      x-ticket: ${get_extract}(ticket)
+    files:
+      image: /images/营业执照.png
+  expected:
+    - eq: {'code':0}
+    - eq: {'message':SUCCESS }
+  extract:
+    image_key : result
+

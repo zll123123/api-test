@@ -1,0 +1,213 @@
+-
+    name: 从私有云获取产品识别码
+    request:
+      method: get
+      url: /api/license/get/env
+      module: oss
+      headers:
+        Content-Type: application/json
+    extract:
+      identifier: result.identifier
+    expected:
+      - eq: { 'code': 0 }
+      - eq: { 'message': 请求成功 }
+
+-
+    name: 在公有云创建公司客户
+    request:
+      method: post
+      url: /crm/oss/customer/create
+      module: cloud
+      headers:
+        Content-Type: application/json
+      json:
+        platformType: PRIVATE
+        name: ${common_data}(companyName)
+        systemId: ${get_extract}(identifier)
+        contact: 张玲玲
+        contactPhone: 1234567890
+        am: zll_01
+        cs: zll_02
+        pm: zll_03
+        agentId: 10000
+        identifier: ${get_extract}(identifier)
+        app: PRIVATE
+    expected:
+      - eq: { 'code': 0 }
+      - eq: { 'message': SUCCESS }
+
+-
+  name: 获取添加的客户的customerId
+  request:
+    method: post
+    url: /crm/oss/customer/page
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      identifier: ${get_extract}(identifier)
+      pageNo: 1
+      pageSize: 10
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+  extract:
+    customerId : result.result[0].id
+
+-
+  name: 给客户公司进行认证
+  request:
+    method: post
+    url: /crm/oss/customer/company/create
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      type: COMPANY
+      areaAbbr: CN
+      corpType: 1
+      name: ${common_data}(companyName)
+      registerNo: '12345123452445'
+      legalPerson: 三八
+      licenseFile:
+        name: 图片1.png
+        type: png
+        key: 8d821e25e9be42118683ac51e8c312fd@230803
+      authorizationFile:
+        name: 图片1.png
+        type: png
+        key: fe6468c463c64f208c9f02378edbf0c7@230803
+      contactPerson: 张豪
+      contact: '10000000001'
+      customerId: ${get_extract}(customerId)
+      attachment: '[]'
+      area: 中国大陆
+
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+
+-
+  name: 填写系统版本信息和功能信息，获取license
+  request:
+    method: post
+    url: /crm/oss/customer/license/create
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      customerId: ${get_extract}(customerId)
+      version: 4.3.6
+      identifier: ${get_extract}(identifier)
+      productConfig:
+        contract: true
+        hybrid: true
+        print: true
+        seal: true
+        faceSign: false
+        fee: false
+        ofd: true
+        feeAllocation: true
+      expireTime: '2025-07-30 16:46:19'
+      expire: true
+      icmaxMark: false
+      cmaxMark: false
+      ipcmaxMark: false
+      pcmaxMark: false
+      certAuthority: false
+      network: INNERNET
+      appMaxMark: false
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+
+-
+  name: 获取license_list，得到license id
+  request:
+    method: post
+    url: /crm/oss/customer/license/list
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      customerId: ${get_extract}(customerId)
+      pageNo: 1
+      pageSize: 10
+  extract:
+    licenseId: result.result[0].id
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+
+-
+  name: 依据licenseId，获取license
+  request:
+    method: post
+    url: /crm/oss/customer/license/generate
+    module: cloud
+    headers:
+      Content-Type: application/json
+    json:
+      id: ${get_extract}(licenseId)
+  extract:
+    licenseCode: result
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': SUCCESS }
+
+-
+  name: 回写license给私有云
+  request:
+    method: post
+    url: /api/setup/license
+    module:
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    data:
+      license: ${get_extract}(licenseCode)
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 请求成功 }
+
+-
+  name: 私有云初始化数据库
+  request:
+    method: post
+    url: /api/setup/database
+    module:
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    data:
+      db: ${common_data}(active_db)
+      dbLabel: 数据库名
+      host: ${db_data}(url)
+      name: ${db_data}(dbname)
+      port: ${db_data}(port)
+      password: ${db_data}(password)
+      username: ${db_data}(username)
+      ssl: false
+
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 请求成功 }
+
+-
+  name: 设置私有云初始管理员
+  request:
+    method: post
+    url: /api/setup/account
+    module: oss
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+    data:
+      name: 管理员
+      account: sysadmin
+      password: qiyuesuo#2020
+      email: 123@qq.com
+      mobile: 10000000001
+  expected:
+    - eq: { 'code': 0 }
+    - eq: { 'message': 激活成功！请重启webapp服务与open服务！}
+
+
+
