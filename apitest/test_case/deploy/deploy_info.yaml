@@ -3,4 +3,4 @@
   svc_name: layla_qiyuesuo
   svc_display_name: qiyuesuo
   service_path: D:\test_auto_deploy
-  oss_url: http://127.0.0.1:9181/
+  oss_url: ${common_data}(oss_url)

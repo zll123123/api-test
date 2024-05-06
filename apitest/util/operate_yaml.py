@@ -12,7 +12,7 @@ def getData(yamlpath, node1, node2):
     with open(yamlpath, mode="r", encoding="utf-8") as f:
         # 用load方法将结果转成字典
         result = yaml.load(stream=f, Loader=yaml.FullLoader)
-        return result[node1][node2]
+        return result.get(node1).get(node2)
 
 
 """

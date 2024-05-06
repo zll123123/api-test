@@ -41,18 +41,19 @@ class request_Util:
         app_token = getData(yamlpath, "open", "app_token")
 
         times = str(int(time.time() * 1000))
-        signature_hash = hashlib.md5((app_token + appSecret + times).encode("utf-8"))
-        signacture = signature_hash.hexdigest()
+        if app_token and appSecret:
+            signature_hash = hashlib.md5((app_token + appSecret + times).encode("utf-8"))
+            signacture = signature_hash.hexdigest()
+            self.signacture = signacture
+            self.app_token = app_token
+            self.time = times
+            self.open_default_header = {
+                "x-qys-accesstoken": self.app_token,
+                "x-qys-signature": self.signacture,
+                "x-qys-timestamp": self.time,
+            }
 
-        self.signacture = signacture
-        self.app_token = app_token
-        self.time = times
         self.X_Qys_Oss_Token = X_Qys_Oss_Token
-        self.open_default_header = {
-            "x-qys-accesstoken": self.app_token,
-            "x-qys-signature": self.signacture,
-            "x-qys-timestamp": self.time,
-        }
         self.cloud_default_header = {
             "X-Auth-Qid": self.X_Qys_Oss_Token,
             "X-Qys-Oss-Token": self.X_Qys_Oss_Token,
@@ -234,7 +235,6 @@ class request_Util:
             res_text = res.json()
         elif res.headers.get("Content-Type").startswith("text/html"):
             res_text = res.text
-        log.logger.info('res-------------------->',res_text)
         with allure.step("进入断言"):
             allure.attach(f"预期{expect},实际接口响应为{res_text}")
         if expect and isinstance(expect, list):

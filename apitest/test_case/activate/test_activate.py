@@ -4,6 +4,7 @@ import pytest
 import allure
 
 from apitest.util.api_method import request_Util
+from apitest.util.auto_deploy import MyService
 from apitest.util.operate_yaml import read_case_yaml
 from apitest.util.rootpath import rootpath
 import pytest
@@ -20,6 +21,18 @@ class Test_activate:
     def test_activate(self, case_info):
         allure.dynamic.title(case_info["name"])
         request_Util().analyse_yaml(case_info)
+
+    @pytest.mark.parametrize(
+        "case_info",
+        read_case_yaml(
+            os.path.join(rootpath, "test_case/deploy/deploy_info.yaml")
+        ),
+    )
+    def test_restart(self,case_info):
+        allure.dynamic.title("激活完成，服务重启")
+        MyService(**case_info).restart_service()
+
+
 
     # @pytest.mark.run(order=2)
     # @pytest.mark.parametrize(

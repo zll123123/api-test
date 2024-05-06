@@ -160,7 +160,7 @@
   request:
     method: post
     url: /api/setup/license
-    module:
+    module: oss
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:
@@ -174,7 +174,7 @@
   request:
     method: post
     url: /api/setup/database
-    module:
+    module: oss
     headers:
       Content-Type: application/x-www-form-urlencoded
     data:
@@ -208,6 +208,8 @@
   expected:
     - eq: { 'code': 0 }
     - eq: { 'message': 激活成功！请重启webapp服务与open服务！}
+
+-
 
 
 
